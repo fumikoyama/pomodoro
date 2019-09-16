@@ -5,22 +5,17 @@
       設定
     </h1>
     <hr />
-    <h2 class="subtitle">基本設定</h2>
-    <hr />
     <b-field label="何て呼んだらいい？">
       <b-input v-model="name"></b-input>
     </b-field>
     <b-field label="TODOリスト使う？">
-      <b-switch v-model="todo" true-value="使う" false-value="使わない">
-        {{ todo }}
+      <b-switch v-model="todo">
+        {{ $store.getters['settings/todoStr'] }}
       </b-switch>
     </b-field>
-    <hr />
-    <h2 class="subtitle">応用設定</h2>
-    <hr />
     <b-field label="1ポモどれくらいにする？">
       <b-numberinput
-        v-model="pomo"
+        v-model="pomoTime"
         min="2"
         max="45"
         :editable="false"
@@ -28,15 +23,15 @@
     </b-field>
     <b-field label="1ポモやったらどれくらい休みたい？">
       <b-numberinput
-        v-model="pomo2"
+        v-model="smallBreakTime"
         min="5"
-        :max="pomo4"
+        :max="breakTime"
         :editable="false"
       ></b-numberinput>
     </b-field>
     <b-field label="何ポモやったらいっぱい休む？">
       <b-numberinput
-        v-model="pomo3"
+        v-model="pomoCount"
         min="1"
         max="10"
         :editable="false"
@@ -44,17 +39,13 @@
     </b-field>
     <b-field label="いっぱい休むときどれくらい休む？">
       <b-numberinput
-        v-model="pomo4"
+        v-model="breakTime"
         min="20"
         max="120"
         step="5"
         :editable="false"
       ></b-numberinput>
     </b-field>
-    <br />
-    <button class="button is-link is-outlined is-fullwidth" @click="update">
-      設定を反映
-    </button>
     <br />
     <button class="button is-link is-outlined is-fullwidth" @click="clear">
       デフォルトに戻す
@@ -64,33 +55,63 @@
 
 <script>
 export default {
-  data() {
-    return {
-      name: '名無しさん',
-      todo: '使う',
-      pomo: 25,
-      pomo2: 5,
-      pomo3: 4,
-      pomo4: 30
+  computed: {
+    name: {
+      get() {
+        return this.$store.state.settings.name
+      },
+      set(val) {
+        this.$store.commit('settings/setName', val)
+      }
+    },
+    todo: {
+      get() {
+        return this.$store.state.settings.todo
+      },
+      set(val) {
+        this.$store.commit('settings/setTodo', val)
+      }
+    },
+    pomoTime: {
+      get() {
+        return this.$store.state.settings.pomoTime
+      },
+      set(val) {
+        this.$store.commit('settings/setPomoTime', val)
+      }
+    },
+    smallBreakTime: {
+      get() {
+        return this.$store.state.settings.smallBreakTime
+      },
+      set(val) {
+        this.$store.commit('settings/setSmallBreakTime', val)
+      }
+    },
+    pomoCount: {
+      get() {
+        return this.$store.state.settings.pomoCount
+      },
+      set(val) {
+        this.$store.commit('settings/setPomoCount', val)
+      }
+    },
+    breakTime: {
+      get() {
+        return this.$store.state.settings.breakTime
+      },
+      set(val) {
+        this.$store.commit('settings/setBreakTime', val)
+      }
     }
   },
   methods: {
-    update() {
-      this.$buefy.dialog.confirm({
-        message: '設定を反映してもいい？スケジュールはリセットされちゃうよ？',
-        type: 'is-danger',
-        onConfirm: () => {}
-      })
-    },
     clear() {
       this.$buefy.dialog.confirm({
-        message: `デフォルトに戻してもいい？スケジュールはリセットされちゃうよ？`,
+        message: `デフォルトに戻してもいい？`,
         type: 'is-danger',
         onConfirm: () => {
-          this.pomo = 25
-          this.pomo2 = 5
-          this.pomo3 = 4
-          this.pomo4 = 30
+          this.$store.commit('settings/clear')
         }
       })
     }
