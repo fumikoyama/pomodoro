@@ -1,29 +1,25 @@
 <template>
-  <b-collapse
-    aria-id="completedList"
-    class="panel"
-    :open.sync="isCompletedListOpen"
-  >
+  <b-collapse aria-id="todoCompletedList" class="panel" :open.sync="isOpen">
     <div
       slot="trigger"
       class="panel-heading"
       role="button"
-      aria-controls="completedList"
+      aria-controls="todoCompletedList"
     >
       <b-icon icon="checkbox-marked-outline"></b-icon>
-      <strong>完了</strong>
+      <strong>{{ title }}</strong>
       <b-icon
-        :icon="isCompletedListOpen ? 'menu-down' : 'menu-up'"
+        :icon="isOpen ? 'menu-down' : 'menu-up'"
         class="is-pulled-right"
       ></b-icon>
     </div>
-    <div v-if="completedItems.length === 0" class="panel-block">
+    <div v-if="items.length === 0" class="panel-block">
       中に誰もいませんよ
     </div>
     <todo-list-item
-      v-for="item of completedItems"
+      v-for="item of items"
       v-else
-      :key="item.id"
+      :key="`completed-${item.id}`"
       :item="item"
     />
   </b-collapse>
@@ -36,12 +32,15 @@ export default {
   },
   data() {
     return {
-      isCompletedListOpen: true
+      isOpen: true
     }
   },
   computed: {
-    completedItems() {
-      return this.$parent.items.filter((x) => x.checked)
+    title() {
+      return `完了（${this.items.length}）`
+    },
+    items() {
+      return this.$store.getters['todo/completedItems']
     }
   }
 }

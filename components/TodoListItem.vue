@@ -1,10 +1,25 @@
 <template>
-  <label class="panel-block">
-    <b-checkbox v-model="item.checked" type="is-info" />
-    <p class="memo">{{ item.date + '\n' + item.memo }}</p>
+  <label class="panel-block" :class="{ 'has-background-grey-lighter': isEdit }">
+    <b-checkbox
+      v-model="checked"
+      :disabled="item.deleted || isEdit"
+      type="is-info"
+    ></b-checkbox>
+    <p class="memo">{{ text }}</p>
     <div class="content-right">
-      <b-button type="is-success" icon-right="pencil" @click="edit(item)" />
-      <b-button type="is-danger" icon-right="delete" @click="remove(item)" />
+      <template v-if="item.deleted">
+        <b-button type="is-success" icon-right="restore" @click="restore" />
+        <b-button type="is-danger" icon-right="delete" @click="destory" />
+      </template>
+      <template v-else>
+        <b-button
+          type="is-success"
+          icon-right="pencil"
+          :disabled="isEdit"
+          @click="edit"
+        />
+        <b-button type="is-danger" icon-right="delete" @click="remove" />
+      </template>
     </div>
   </label>
 </template>
@@ -14,19 +29,43 @@ export default {
   props: {
     item: { type: Object, default: null }
   },
+  computed: {
+    isEdit() {
+      return this.item.id === this.$store.state.todo.editData.id
+    },
+    text() {
+      return `${this.item.date.toLocaleDateString()}\n${this.item.memo}`
+    },
+    checked: {
+      get() {
+        return this.item.checked
+      },
+      set(value) {
+        this.$store.commit('todo/changeCheckState', {
+          id: this.item.id,
+          value
+        })
+      }
+    }
+  },
   methods: {
-    remove(item) {
+    remove() {
+      this.$store.commit('todo/remove', this.item.id)
+    },
+    destory() {
       this.$buefy.dialog.confirm({
         message: 'こいつ邪魔……消していい?',
         type: 'is-danger',
-        // onConfirm: () => this.items.splice(i, 1)
-        onConfirm: () => {}
+        onConfirm: () => {
+          this.$store.commit('todo/destory', this.item.id)
+        }
       })
     },
-    edit(i) {
-      // this.$parent.selectedId = i.id
-      // this.$parent.memo = i.memo
-      // this.$parent.date = new Date(i.date)
+    restore() {
+      this.$store.commit('todo/restore', this.item.id)
+    },
+    edit() {
+      this.$store.commit('todo/edit', this.item.id)
     }
   }
 }

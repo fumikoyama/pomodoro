@@ -1,9 +1,5 @@
 <template>
-  <b-collapse
-    aria-id="performance"
-    class="panel"
-    :open.sync="isPerformanceOpen"
-  >
+  <b-collapse aria-id="performance" class="panel" :open.sync="isOpen">
     <div
       slot="trigger"
       class="panel-heading"
@@ -13,7 +9,7 @@
       <b-icon icon="gauge"></b-icon>
       <strong>実績</strong>
       <b-icon
-        :icon="isPerformanceOpen ? 'menu-down' : 'menu-up'"
+        :icon="isOpen ? 'menu-down' : 'menu-up'"
         class="is-pulled-right"
       ></b-icon>
     </div>
@@ -39,7 +35,7 @@
 export default {
   data() {
     return {
-      isPerformanceOpen: true
+      isOpen: true
     }
   }
 }

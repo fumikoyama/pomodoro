@@ -60,48 +60,48 @@ export default {
       get() {
         return this.$store.state.settings.name
       },
-      set(val) {
-        this.$store.commit('settings/setName', val)
+      set(value) {
+        this.$store.commit('settings/setName', value)
       }
     },
     todo: {
       get() {
         return this.$store.state.settings.todo
       },
-      set(val) {
-        this.$store.commit('settings/setTodo', val)
+      set(value) {
+        this.$store.commit('settings/setTodo', value)
       }
     },
     pomoTime: {
       get() {
         return this.$store.state.settings.pomoTime
       },
-      set(val) {
-        this.$store.commit('settings/setPomoTime', val)
+      set(value) {
+        this.$store.commit('settings/setPomoTime', value)
       }
     },
     smallBreakTime: {
       get() {
         return this.$store.state.settings.smallBreakTime
       },
-      set(val) {
-        this.$store.commit('settings/setSmallBreakTime', val)
+      set(value) {
+        this.$store.commit('settings/setSmallBreakTime', value)
       }
     },
     pomoCount: {
       get() {
         return this.$store.state.settings.pomoCount
       },
-      set(val) {
-        this.$store.commit('settings/setPomoCount', val)
+      set(value) {
+        this.$store.commit('settings/setPomoCount', value)
       }
     },
     breakTime: {
       get() {
         return this.$store.state.settings.breakTime
       },
-      set(val) {
-        this.$store.commit('settings/setBreakTime', val)
+      set(value) {
+        this.$store.commit('settings/setBreakTime', value)
       }
     }
   },
