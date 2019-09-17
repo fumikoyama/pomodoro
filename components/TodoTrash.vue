@@ -24,6 +24,7 @@
     />
   </b-collapse>
 </template>
+
 <script>
 import TodoListItem from '~/components/TodoListItem'
 export default {
