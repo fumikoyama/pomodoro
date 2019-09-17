@@ -1,5 +1,5 @@
 <template>
-  <label class="panel-block" :class="{ 'has-background-grey-lighter': isEdit }">
+  <label class="panel-block" :class="style">
     <b-checkbox
       v-model="checked"
       :disabled="item.deleted || isEdit"
@@ -38,6 +38,9 @@ export default {
     item: { type: Object, default: null }
   },
   computed: {
+    style() {
+      return { 'has-background-grey-lighter': this.isEdit }
+    },
     isEdit() {
       return this.item.id === this.$store.state.todo.editData.id
     },

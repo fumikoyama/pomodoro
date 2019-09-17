@@ -47,5 +47,13 @@ export const mutations = {
 export const getters = {
   todoStr(state) {
     return state.todo === true ? '使う' : '使わない'
+  },
+  pomoSettings(state) {
+    return {
+      pomoTime: state.pomoTime,
+      smallBreakTime: state.smallBreakTime,
+      pomoCount: state.pomoCount,
+      breakTime: state.breakTime
+    }
   }
 }
