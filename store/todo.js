@@ -1,37 +1,30 @@
 const clearEdit = (state) => {
   // 編集データをクリア
   state.editData.id = null
-  state.editData.checked = null
-  state.editData.memo = null
-  state.rawEditData.checked = null
+  state.editData.note = null
   state.rawEditData.date = null
-  state.rawEditData.memo = null
+  state.rawEditData.note = null
 }
 
 export const state = () => ({
   list: [],
   editData: {
     id: null,
-    checked: null,
     date: null,
-    memo: null
+    note: null
   },
   rawEditData: {
-    checked: null,
     date: null,
-    memo: null
+    note: null
   }
 })
 
 export const mutations = {
-  setChecked(state, value) {
-    state.editData.checked = value
-  },
   setDate(state, value) {
     state.editData.date = value
   },
-  setMemo(state, value) {
-    state.editData.memo = value
+  setNote(state, value) {
+    state.editData.note = value
   },
   changeCheckState(state, { id, value }) {
     // idを元にデータを取得
@@ -49,13 +42,12 @@ export const mutations = {
     state.list.push({
       id: max() + 1,
       date: state.editData.date,
-      checked: state.editData.checked,
-      memo: state.editData.memo,
+      checked: false,
+      note: state.editData.note,
       deleted: false
     })
     // メモ欄をクリア
-    state.editData.checked = null
-    state.editData.memo = null
+    state.editData.note = null
   },
   remove(state, id) {
     // idを元にデータを取得
@@ -84,19 +76,17 @@ export const mutations = {
     const todo = state.list.find((x) => x.id === id)
     // 取得したデータの内容を編集データに反映
     state.editData.id = id
-    state.editData.checked = todo.checked
     state.editData.date = todo.date
-    state.editData.memo = todo.memo
+    state.editData.note = todo.note
     state.rawEditData.date = todo.date
-    state.rawEditData.memo = todo.memo
+    state.rawEditData.note = todo.note
   },
   update(state) {
     // 編集データに設定されているidを元にデータを取得
     const todo = state.list.find((x) => x.id === state.editData.id)
     // 編集データを取得したデータに反映
-    todo.checked = state.editData.checked
     todo.date = state.editData.date
-    todo.memo = state.editData.memo
+    todo.note = state.editData.note
     // 編集データをクリア
     clearEdit(state)
   },
@@ -118,19 +108,18 @@ export const getters = {
     // 削除済み項目の未取得
     return state.list.filter((x) => x.deleted)
   },
-  edited(state) {
+  canCommit(state) {
     if (state.editData.id) {
       // 編集の場合
       return (
-        state.editData.memo &&
+        state.editData.note &&
         state.editData.date &&
-        (state.rawEditData.memo !== state.editData.memo ||
-          state.rawEditData.checked !== state.editData.checked ||
+        (state.rawEditData.note !== state.editData.note ||
           state.rawEditData.date !== state.editData.date)
       )
     } else {
       // 上記以外
-      return state.editData.memo && state.editData.date
+      return state.editData.note && state.editData.date
     }
   }
 }

@@ -1,4 +1,4 @@
-const DEF_NAME = '名無しさん'
+const DEF_NAME = null
 const DEF_TODO = true
 const DEF_POMOTIME = 25
 const DEF_SMALL_BREAK_TIME = 5

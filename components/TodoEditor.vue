@@ -14,15 +14,17 @@
       ></b-icon>
     </div>
     <div class="panel-block">
-      <b-checkbox v-model="checked" type="is-info">
-        {{ checked ? '完了' : '未完了' }}
-      </b-checkbox>
+      <b-input
+        v-model="note"
+        placeholder="やりたいことをここに書いてね。"
+        type="textarea"
+      />
     </div>
     <div class="panel-block">
-      <b-input v-model="memo" placeholder="メモ" type="textarea" />
-    </div>
-    <div class="panel-block">
-      <b-datepicker v-model="date" placeholder="日付"></b-datepicker>
+      <b-datepicker
+        v-model="date"
+        placeholder="日付を入力してね。"
+      ></b-datepicker>
     </div>
     <div class="panel-block">
       <template v-if="id">
@@ -31,7 +33,7 @@
         </button>
         <button
           class="button is-link is-outlined is-fullwidth"
-          :disabled="!edited"
+          :disabled="disabled"
           @click="update"
         >
           Edit
@@ -40,15 +42,10 @@
       <button
         v-else
         class="button is-link is-outlined is-fullwidth"
-        :disabled="!edited"
+        :disabled="disabled"
         @click="add"
       >
         Add
-      </button>
-    </div>
-    <div v-if="id" class="panel-block">
-      <button class="button is-danger is-outlined is-fullwidth" @click="remove">
-        Delete
       </button>
     </div>
   </b-collapse>
@@ -68,14 +65,6 @@ export default {
     id() {
       return this.$store.state.todo.editData.id
     },
-    checked: {
-      get() {
-        return this.$store.state.todo.editData.checked
-      },
-      set(value) {
-        this.$store.commit('todo/setChecked', value)
-      }
-    },
     date: {
       get() {
         return this.$store.state.todo.editData.date
@@ -84,16 +73,16 @@ export default {
         this.$store.commit('todo/setDate', value)
       }
     },
-    memo: {
+    note: {
       get() {
-        return this.$store.state.todo.editData.memo
+        return this.$store.state.todo.editData.note
       },
       set(value) {
-        this.$store.commit('todo/setMemo', value)
+        this.$store.commit('todo/setNote', value)
       }
     },
-    edited() {
-      return this.$store.getters['todo/edited']
+    disabled() {
+      return !this.$store.getters['todo/canCommit']
     }
   },
   methods: {
@@ -103,25 +92,13 @@ export default {
     update() {
       this.$buefy.dialog.confirm({
         message: '更新……する?',
-        onConfirm: () => {
-          this.$store.commit('todo/update')
-        }
+        onConfirm: () => this.$store.commit('todo/update')
       })
     },
     cancel() {
       this.$buefy.dialog.confirm({
         message: '編集……やめる?',
-        onConfirm: () => {
-          this.$store.commit('todo/cancel')
-        }
-      })
-    },
-    remove() {
-      this.$buefy.dialog.confirm({
-        message: 'ゴミ箱送りにしちゃう?',
-        onConfirm: () => {
-          this.$store.commit('todo/remove', this.id)
-        }
+        onConfirm: () => this.$store.commit('todo/cancel')
       })
     }
   }

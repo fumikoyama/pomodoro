@@ -5,20 +5,28 @@
       :disabled="item.deleted || isEdit"
       type="is-info"
     ></b-checkbox>
-    <p class="memo">{{ text }}</p>
+    <p class="note">{{ text }}</p>
     <div class="content-right">
       <template v-if="item.deleted">
-        <b-button type="is-success" icon-right="restore" @click="restore" />
-        <b-button type="is-danger" icon-right="delete" @click="destory" />
+        <b-tooltip label="元に戻す" type="is-dark">
+          <b-button type="is-success" icon-right="restore" @click="restore" />
+        </b-tooltip>
+        <b-tooltip label="この世から消す" type="is-dark">
+          <b-button type="is-danger" icon-right="delete" @click="destory" />
+        </b-tooltip>
       </template>
       <template v-else>
-        <b-button
-          type="is-success"
-          icon-right="pencil"
-          :disabled="isEdit"
-          @click="edit"
-        />
-        <b-button type="is-danger" icon-right="delete" @click="remove" />
+        <b-tooltip label="編集する" type="is-dark" :active="!isEdit">
+          <b-button
+            type="is-success"
+            icon-right="pencil"
+            :disabled="isEdit"
+            @click="edit"
+          />
+        </b-tooltip>
+        <b-tooltip label="ゴミ箱に入れる" type="is-dark">
+          <b-button type="is-danger" icon-right="delete" @click="remove" />
+        </b-tooltip>
       </template>
     </div>
   </label>
@@ -34,7 +42,7 @@ export default {
       return this.item.id === this.$store.state.todo.editData.id
     },
     text() {
-      return `${this.item.date.toLocaleDateString()}\n${this.item.memo}`
+      return `${this.item.date.toLocaleDateString()}\n${this.item.note}`
     },
     checked: {
       get() {
@@ -50,15 +58,22 @@ export default {
   },
   methods: {
     remove() {
-      this.$store.commit('todo/remove', this.item.id)
+      const rem = () => this.$store.commit('todo/remove', this.item.id)
+      if (this.isEdit) {
+        this.$buefy.dialog.confirm({
+          message: '編集中だよ？……ゴミ箱に入れる?',
+          type: 'is-danger',
+          onConfirm: rem
+        })
+      } else {
+        rem()
+      }
     },
     destory() {
       this.$buefy.dialog.confirm({
         message: 'こいつ邪魔……消していい?',
         type: 'is-danger',
-        onConfirm: () => {
-          this.$store.commit('todo/destory', this.item.id)
-        }
+        onConfirm: () => this.$store.commit('todo/destory', this.item.id)
       })
     },
     restore() {
@@ -75,7 +90,7 @@ export default {
 .content-right {
   margin: 0 0 0 auto;
 }
-.memo {
+.note {
   white-space: pre;
 }
 </style>

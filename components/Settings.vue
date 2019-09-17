@@ -6,7 +6,7 @@
     </h1>
     <hr />
     <b-field label="何て呼んだらいい？">
-      <b-input v-model="name"></b-input>
+      <b-input v-model="name" placeholder="名無しさん"></b-input>
     </b-field>
     <b-field label="TODOリスト使う？">
       <b-switch v-model="todo">
@@ -110,9 +110,7 @@ export default {
       this.$buefy.dialog.confirm({
         message: `デフォルトに戻してもいい？`,
         type: 'is-danger',
-        onConfirm: () => {
-          this.$store.commit('settings/clear')
-        }
+        onConfirm: () => this.$store.commit('settings/clear')
       })
     }
   }
