@@ -13,47 +13,60 @@
         class="is-pulled-right"
       ></b-icon>
     </div>
-    <div
-      v-for="pomo in pomoList"
-      :key="pomo.no"
-      class="panel-block"
-      :class="{ 'has-background-success': pomo.completed }"
-    >
-      <b-icon v-if="pomo.completed" icon="checkbox-marked-outline"></b-icon>
-      <b-icon v-else icon="checkbox-blank-outline"></b-icon>
-      {{ pomo.title + '（' + pomo.time + '分）' }}
+    <schedule-item
+      v-for="item in list"
+      :key="`schedule-${item.no}`"
+      :item="item"
+    />
+    <div class="panel-block">
+      <button
+        v-if="list.length === 0"
+        class="button is-link is-outlined is-fullwidth"
+        @click="create"
+      >
+        スケジュールの作成
+      </button>
+      <button
+        v-else
+        class="button is-danger is-outlined is-fullwidth"
+        @click="recreate"
+      >
+        スケジュールの再作成
+      </button>
     </div>
   </b-collapse>
 </template>
 
 <script>
+import ScheduleItem from '~/components/ScheduleItem'
 export default {
+  components: {
+    ScheduleItem
+  },
   data() {
     return {
-      isOpen: true,
-      pomoList: [
-        {
-          no: 1,
-          title: '1ポモ目',
-          time: 25,
-          break: false,
-          completed: true
-        },
-        {
-          no: 2,
-          title: '休憩タイム',
-          time: 5,
-          break: true,
-          completed: false
+      isOpen: true
+    }
+  },
+  computed: {
+    list() {
+      return this.$store.state.schedule.list
+    }
+  },
+  methods: {
+    create() {
+      const settings = this.$store.getters['settings/pomoSettings']
+      this.$store.commit('schedule/create', settings)
+    },
+    recreate() {
+      this.$buefy.dialog.confirm({
+        message: 'スケージュール作り直す?',
+        onConfirm: () => {
+          const settings = this.$store.getters['settings/pomoSettings']
+          this.$store.commit('schedule/create', settings)
         }
-      ]
+      })
     }
   }
 }
 </script>
-
-<style scoped>
-.content-right {
-  margin: 0 0 0 auto;
-}
-</style>
