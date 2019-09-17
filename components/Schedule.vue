@@ -1,5 +1,5 @@
 <template>
-  <b-collapse aria-id="schedule" class="panel" :open.sync="isScheduleOpen">
+  <b-collapse aria-id="schedule" class="panel" :open.sync="isOpen">
     <div
       slot="trigger"
       class="panel-heading"
@@ -9,7 +9,7 @@
       <b-icon icon="calendar-clock"></b-icon>
       <strong>スケジュール</strong>
       <b-icon
-        :icon="isScheduleOpen ? 'menu-down' : 'menu-up'"
+        :icon="isOpen ? 'menu-down' : 'menu-up'"
         class="is-pulled-right"
       ></b-icon>
     </div>
@@ -30,7 +30,7 @@
 export default {
   data() {
     return {
-      isScheduleOpen: true,
+      isOpen: true,
       pomoList: [
         {
           no: 1,

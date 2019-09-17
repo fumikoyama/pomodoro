@@ -1,29 +1,25 @@
 <template>
-  <b-collapse
-    aria-id="inCompleteList"
-    class="panel"
-    :open.sync="isInCompleteListOpen"
-  >
+  <b-collapse aria-id="todoIncompleteList" class="panel" :open.sync="isOpen">
     <div
       slot="trigger"
       class="panel-heading"
       role="button"
-      aria-controls="inCompleteList"
+      aria-controls="todoIncompleteList"
     >
       <b-icon icon="checkbox-blank-outline"></b-icon>
-      <strong>未完了</strong>
+      <strong>{{ title }}</strong>
       <b-icon
-        :icon="isInCompleteListOpen ? 'menu-down' : 'menu-up'"
+        :icon="isOpen ? 'menu-down' : 'menu-up'"
         class="is-pulled-right"
       ></b-icon>
     </div>
-    <div v-if="incompleteItems.length === 0" class="panel-block">
+    <div v-if="items.length === 0" class="panel-block">
       中に誰もいませんよ
     </div>
     <todo-list-item
-      v-for="item of incompleteItems"
+      v-for="item of items"
       v-else
-      :key="item.id"
+      :key="`incomplete-${item.id}`"
       :item="item"
     />
   </b-collapse>
@@ -37,12 +33,15 @@ export default {
   },
   data() {
     return {
-      isInCompleteListOpen: true
+      isOpen: true
     }
   },
   computed: {
-    incompleteItems() {
-      return this.$parent.items.filter((x) => !x.checked)
+    title() {
+      return `未完了（${this.items.length}）`
+    },
+    items() {
+      return this.$store.getters['todo/incompleteItems']
     }
   }
 }

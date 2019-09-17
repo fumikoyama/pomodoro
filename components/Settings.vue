@@ -6,7 +6,7 @@
     </h1>
     <hr />
     <b-field label="何て呼んだらいい？">
-      <b-input v-model="name"></b-input>
+      <b-input v-model="name" placeholder="名無しさん"></b-input>
     </b-field>
     <b-field label="TODOリスト使う？">
       <b-switch v-model="todo">
@@ -60,48 +60,48 @@ export default {
       get() {
         return this.$store.state.settings.name
       },
-      set(val) {
-        this.$store.commit('settings/setName', val)
+      set(value) {
+        this.$store.commit('settings/setName', value)
       }
     },
     todo: {
       get() {
         return this.$store.state.settings.todo
       },
-      set(val) {
-        this.$store.commit('settings/setTodo', val)
+      set(value) {
+        this.$store.commit('settings/setTodo', value)
       }
     },
     pomoTime: {
       get() {
         return this.$store.state.settings.pomoTime
       },
-      set(val) {
-        this.$store.commit('settings/setPomoTime', val)
+      set(value) {
+        this.$store.commit('settings/setPomoTime', value)
       }
     },
     smallBreakTime: {
       get() {
         return this.$store.state.settings.smallBreakTime
       },
-      set(val) {
-        this.$store.commit('settings/setSmallBreakTime', val)
+      set(value) {
+        this.$store.commit('settings/setSmallBreakTime', value)
       }
     },
     pomoCount: {
       get() {
         return this.$store.state.settings.pomoCount
       },
-      set(val) {
-        this.$store.commit('settings/setPomoCount', val)
+      set(value) {
+        this.$store.commit('settings/setPomoCount', value)
       }
     },
     breakTime: {
       get() {
         return this.$store.state.settings.breakTime
       },
-      set(val) {
-        this.$store.commit('settings/setBreakTime', val)
+      set(value) {
+        this.$store.commit('settings/setBreakTime', value)
       }
     }
   },
@@ -110,9 +110,7 @@ export default {
       this.$buefy.dialog.confirm({
         message: `デフォルトに戻してもいい？`,
         type: 'is-danger',
-        onConfirm: () => {
-          this.$store.commit('settings/clear')
-        }
+        onConfirm: () => this.$store.commit('settings/clear')
       })
     }
   }

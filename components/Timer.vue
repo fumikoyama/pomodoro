@@ -1,5 +1,5 @@
 <template>
-  <b-collapse aria-id="timer" class="panel" :open.sync="isTimerOpen">
+  <b-collapse aria-id="timer" class="panel" :open.sync="isOpen">
     <div
       slot="trigger"
       class="panel-heading"
@@ -9,7 +9,7 @@
       <b-icon icon="timer"></b-icon>
       <strong>タイマー</strong>
       <b-icon
-        :icon="isTimerOpen ? 'menu-down' : 'menu-up'"
+        :icon="isOpen ? 'menu-down' : 'menu-up'"
         class="is-pulled-right"
       ></b-icon>
     </div>
@@ -39,7 +39,7 @@
 export default {
   data() {
     return {
-      isTimerOpen: true
+      isOpen: true
     }
   }
 }

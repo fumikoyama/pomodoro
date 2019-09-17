@@ -1,5 +1,5 @@
 <template>
-  <b-collapse aria-id="todoEditor" class="panel" :open.sync="isTodoEditorOpen">
+  <b-collapse aria-id="todoEditor" class="panel" :open.sync="isOpen">
     <div
       slot="trigger"
       class="panel-heading"
@@ -7,27 +7,34 @@
       aria-controls="todoEditor"
     >
       <b-icon icon="lead-pencil"></b-icon>
-      <strong>追加/編集</strong>
+      <strong>{{ title }}</strong>
       <b-icon
-        :icon="isTodoEditorOpen ? 'menu-down' : 'menu-up'"
+        :icon="isOpen ? 'menu-down' : 'menu-up'"
         class="is-pulled-right"
       ></b-icon>
     </div>
     <div class="panel-block">
-      <b-input v-model="$parent.memo" placeholder="メモ" type="textarea" />
+      <b-input
+        v-model="note"
+        placeholder="やりたいことをここに書いてね。"
+        type="textarea"
+      />
     </div>
     <div class="panel-block">
-      <b-datepicker v-model="$parent.date" placeholder="日付"></b-datepicker>
+      <b-datepicker
+        v-model="date"
+        placeholder="日付を入力してね。"
+      ></b-datepicker>
     </div>
     <div class="panel-block">
-      <template v-if="$parent.selectedId">
+      <template v-if="id">
         <button class="button is-link is-outlined is-fullwidth" @click="cancel">
           Cancel
         </button>
         <button
           class="button is-link is-outlined is-fullwidth"
-          :disabled="edited"
-          @click="edit"
+          :disabled="disabled"
+          @click="update"
         >
           Edit
         </button>
@@ -35,7 +42,7 @@
       <button
         v-else
         class="button is-link is-outlined is-fullwidth"
-        :disabled="edited"
+        :disabled="disabled"
         @click="add"
       >
         Add
@@ -48,37 +55,51 @@
 export default {
   data() {
     return {
-      isTodoEditorOpen: true
+      isOpen: true
     }
   },
   computed: {
-    edited() {
-      return !this.$parent.memo || !this.$parent.date
+    title() {
+      return this.id ? '編集' : '追加'
     },
-    date() {
-      return this.$parent.date.toLocaleDateString()
+    id() {
+      return this.$store.state.todo.editData.id
+    },
+    date: {
+      get() {
+        return this.$store.state.todo.editData.date
+      },
+      set(value) {
+        this.$store.commit('todo/setDate', value)
+      }
+    },
+    note: {
+      get() {
+        return this.$store.state.todo.editData.note
+      },
+      set(value) {
+        this.$store.commit('todo/setNote', value)
+      }
+    },
+    disabled() {
+      return !this.$store.getters['todo/canCommit']
     }
   },
   methods: {
     add() {
-      this.$parent.items.push({
-        id: Math.max(...this.$parent.items.map((x) => x.id)) + 1,
-        date: this.date,
-        checked: false,
-        memo: this.$parent.memo
-      })
-      this.$parent.memo = null
+      this.$store.commit('todo/add')
     },
-    edit() {
-      const t = this.$parent.items.find((x) => x.id === this.$parent.selectedId)
-      t.date = this.date
-      t.memo = this.$parent.memo
-      this.$parent.selectedId = null
-      this.$parent.memo = null
+    update() {
+      this.$buefy.dialog.confirm({
+        message: '更新……する?',
+        onConfirm: () => this.$store.commit('todo/update')
+      })
     },
     cancel() {
-      this.$parent.selectedId = null
-      this.$parent.memo = null
+      this.$buefy.dialog.confirm({
+        message: '編集……やめる?',
+        onConfirm: () => this.$store.commit('todo/cancel')
+      })
     }
   }
 }

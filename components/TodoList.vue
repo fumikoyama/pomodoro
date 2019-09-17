@@ -8,48 +8,31 @@
     <div class="columns">
       <div class="column">
         <!-- 完了リスト -->
-        <completed-list />
+        <todo-completed-list />
         <!-- 未完了リスト -->
-        <incomplete-list />
+        <todo-incomplete-list />
       </div>
       <div class="column">
         <!-- 追加/編集 -->
         <todo-editor />
+        <!-- ゴミ箱 -->
+        <todo-trash />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import CompletedList from '~/components/CompletedList'
-import IncompleteList from '~/components/IncompleteList'
+import TodoCompletedList from '~/components/TodoCompletedList'
+import TodoIncompleteList from '~/components/TodoIncompleteList'
+import TodoTrash from '~/components/TodoTrash'
 import TodoEditor from '~/components/TodoEditor'
 export default {
   components: {
-    CompletedList,
-    IncompleteList,
+    TodoCompletedList,
+    TodoIncompleteList,
+    TodoTrash,
     TodoEditor
-  },
-  data() {
-    return {
-      selectedId: null,
-      date: null,
-      memo: null,
-      items: [
-        {
-          id: 1,
-          date: '2019/09/15',
-          checked: false,
-          memo: 'remember me'
-        },
-        {
-          id: 3,
-          date: '2019/09/15',
-          checked: true,
-          memo: 'remember me2'
-        }
-      ]
-    }
   }
 }
 </script>
