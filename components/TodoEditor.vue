@@ -1,18 +1,5 @@
 <template>
-  <b-collapse aria-id="todoEditor" class="panel" :open.sync="isOpen">
-    <div
-      slot="trigger"
-      class="panel-heading"
-      role="button"
-      aria-controls="todoEditor"
-    >
-      <b-icon icon="lead-pencil"></b-icon>
-      <strong>{{ title }}</strong>
-      <b-icon
-        :icon="isOpen ? 'menu-down' : 'menu-up'"
-        class="is-pulled-right"
-      ></b-icon>
-    </div>
+  <collapse-panel icon="lead-pencil" :title="title">
     <div class="panel-block">
       <b-input
         v-model="note"
@@ -48,15 +35,14 @@
         Add
       </button>
     </div>
-  </b-collapse>
+  </collapse-panel>
 </template>
 
 <script>
+import CollapsePanel from '~/components/CollapsePanel'
 export default {
-  data() {
-    return {
-      isOpen: true
-    }
+  components: {
+    CollapsePanel
   },
   computed: {
     title() {
