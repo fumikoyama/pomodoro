@@ -1,18 +1,5 @@
 <template>
-  <b-collapse aria-id="schedule" class="panel" :open.sync="isOpen">
-    <div
-      slot="trigger"
-      class="panel-heading"
-      role="button"
-      aria-controls="schedule"
-    >
-      <b-icon icon="calendar-clock"></b-icon>
-      <strong>スケジュール</strong>
-      <b-icon
-        :icon="isOpen ? 'menu-down' : 'menu-up'"
-        class="is-pulled-right"
-      ></b-icon>
-    </div>
+  <collapse-panel icon="calendar-clock" title="スケジュール">
     <schedule-item
       v-for="item in list"
       :key="`schedule-${item.no}`"
@@ -21,32 +8,25 @@
     <div class="panel-block">
       <button
         v-if="list.length === 0"
-        class="button is-link is-outlined is-fullwidth"
+        class="button is-success is-fullwidth"
         @click="create"
       >
         スケジュールの作成
       </button>
-      <button
-        v-else
-        class="button is-danger is-outlined is-fullwidth"
-        @click="recreate"
-      >
+      <button v-else class="button is-info is-fullwidth" @click="recreate">
         スケジュールの再作成
       </button>
     </div>
-  </b-collapse>
+  </collapse-panel>
 </template>
 
 <script>
+import CollapsePanel from '~/components/CollapsePanel'
 import ScheduleItem from '~/components/ScheduleItem'
 export default {
   components: {
+    CollapsePanel,
     ScheduleItem
-  },
-  data() {
-    return {
-      isOpen: true
-    }
   },
   computed: {
     list() {
@@ -61,6 +41,7 @@ export default {
     recreate() {
       this.$buefy.dialog.confirm({
         message: 'スケージュール作り直す?',
+        type: 'is-danger',
         onConfirm: () => {
           const settings = this.$store.getters['settings/pomoSettings']
           this.$store.commit('schedule/create', settings)

@@ -1,18 +1,5 @@
 <template>
-  <b-collapse aria-id="todoTrashList" class="panel" :open.sync="isOpen">
-    <div
-      slot="trigger"
-      class="panel-heading"
-      role="button"
-      aria-controls="todoTrashList"
-    >
-      <b-icon icon="delete"></b-icon>
-      <strong>{{ title }}</strong>
-      <b-icon
-        :icon="isOpen ? 'menu-down' : 'menu-up'"
-        class="is-pulled-right"
-      ></b-icon>
-    </div>
+  <collapse-panel icon="delete" :title="title">
     <div v-if="items.length === 0" class="panel-block">
       中に誰もいませんよ
     </div>
@@ -22,19 +9,16 @@
       :key="`trash-${item.id}`"
       :item="item"
     />
-  </b-collapse>
+  </collapse-panel>
 </template>
 
 <script>
+import CollapsePanel from '~/components/CollapsePanel'
 import TodoListItem from '~/components/TodoListItem'
 export default {
   components: {
+    CollapsePanel,
     TodoListItem
-  },
-  data() {
-    return {
-      isOpen: false
-    }
   },
   computed: {
     title() {

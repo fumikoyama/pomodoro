@@ -1,18 +1,5 @@
 <template>
-  <b-collapse aria-id="timer" class="panel" :open.sync="isOpen">
-    <div
-      slot="trigger"
-      class="panel-heading"
-      role="button"
-      aria-controls="timer"
-    >
-      <b-icon icon="timer"></b-icon>
-      <strong>タイマー</strong>
-      <b-icon
-        :icon="isOpen ? 'menu-down' : 'menu-up'"
-        class="is-pulled-right"
-      ></b-icon>
-    </div>
+  <collapse-panel icon="timer" title="タイマー">
     <div class="panel-block">
       時間
     </div>
@@ -32,15 +19,14 @@
         停止
       </button>
     </div>
-  </b-collapse>
+  </collapse-panel>
 </template>
 
 <script>
+import CollapsePanel from '~/components/CollapsePanel'
 export default {
-  data() {
-    return {
-      isOpen: true
-    }
+  components: {
+    CollapsePanel
   }
 }
 </script>

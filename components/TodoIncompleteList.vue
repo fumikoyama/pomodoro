@@ -1,18 +1,5 @@
 <template>
-  <b-collapse aria-id="todoIncompleteList" class="panel" :open.sync="isOpen">
-    <div
-      slot="trigger"
-      class="panel-heading"
-      role="button"
-      aria-controls="todoIncompleteList"
-    >
-      <b-icon icon="checkbox-blank-outline"></b-icon>
-      <strong>{{ title }}</strong>
-      <b-icon
-        :icon="isOpen ? 'menu-down' : 'menu-up'"
-        class="is-pulled-right"
-      ></b-icon>
-    </div>
+  <collapse-panel icon="checkbox-blank-outline" :title="title">
     <div v-if="items.length === 0" class="panel-block">
       中に誰もいませんよ
     </div>
@@ -22,19 +9,16 @@
       :key="`incomplete-${item.id}`"
       :item="item"
     />
-  </b-collapse>
+  </collapse-panel>
 </template>
 
 <script>
+import CollapsePanel from '~/components/CollapsePanel'
 import TodoListItem from '~/components/TodoListItem'
 export default {
   components: {
+    CollapsePanel,
     TodoListItem
-  },
-  data() {
-    return {
-      isOpen: true
-    }
   },
   computed: {
     title() {
