@@ -41,41 +41,36 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import CollapsePanel from '~/components/CollapsePanel'
 export default {
   components: {
     CollapsePanel
   },
   computed: {
+    ...mapGetters('todo', { items: 'incompleteItems' }),
     selectedId: {
       get() {
         return this.$store.state.todo.selectedId
       },
       set(value) {
-        this.$store.commit('todo/setSelectedId', value)
+        this.setSelectedId(value)
       }
-    },
-    items() {
-      return this.$store.getters['todo/incompleteItems']
     },
     isEmpty() {
       return this.items.length === 0
     }
   },
   methods: {
+    ...mapActions('tabs', ['showTodos']),
+    ...mapActions('todo', ['changeCheckState', 'setSelectedId']),
     update() {
       this.$buefy.dialog.confirm({
         message: '完了にしちゃう?',
         onConfirm: () => {
-          this.$store.commit('todo/changeCheckState', {
-            id: this.selectedId,
-            value: true
-          })
+          this.changeCheckState({ id: this.selectedId, value: true })
         }
       })
-    },
-    showTodos() {
-      this.$store.commit('tabs/showTodo')
     },
     todoStr(item) {
       return item.date.toLocaleDateString() + ' ' + item.note

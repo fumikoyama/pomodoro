@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import CollapsePanel from '~/components/CollapsePanel'
 import TodoListItem from '~/components/TodoListItem'
 export default {
@@ -21,11 +22,9 @@ export default {
     TodoListItem
   },
   computed: {
+    ...mapGetters('todo', { items: 'completedItems' }),
     title() {
       return `完了（${this.items.length}）`
-    },
-    items() {
-      return this.$store.getters['todo/completedItems']
     },
     isEmpty() {
       return this.items.length === 0

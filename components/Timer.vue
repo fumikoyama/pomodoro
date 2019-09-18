@@ -1,107 +1,76 @@
 <template>
   <collapse-panel icon="timer" title="タイマー">
-    <template v-if="$store.getters['schedule/isTest']">
+    <div v-if="isEmpty" class="panel-block">
+      スケジュールを作成してください。
+    </div>
+    <div v-else-if="isCompleted" class="panel-block">
+      スケジュールを再作成してください。
+    </div>
+    <template v-else>
       <div class="panel-block">
-        {{ `経過した時間[分]：${$store.getters['timer/timeStr']}` }}
+        <div class="container has-text-centered is-size-2 is-family-monospace">
+          {{ `${timeStr}` }}
+        </div>
       </div>
-      <div class="panel-block">
-        {{ `中断された時間[分]：${paused}` }}
-      </div>
-      <div class="panel-block">
-        {{ `中断された回数：${pausedCount}` }}
-      </div>
-      <div v-if="$store.getters['timer/end']" class="panel-block">
-        <button
-          class="button is-success is-outlined is-fullwidth"
-          @click="stop"
-        >
+      <div v-if="end" class="panel-block">
+        <b-button class="is-fullwidth" type="is-success" outlined @click="stop">
           終了
-        </button>
+        </b-button>
       </div>
-      <template v-else-if="$store.getters['timer/isRunning']">
+      <template v-else-if="isStarted">
         <div class="panel-block">
-          <button
-            class="button is-link is-outlined is-fullwidth"
+          <b-button
+            class="is-fullwidth"
+            type="is-link"
+            outlined
             :disabled="!isPause"
             @click="restart"
           >
             再開
-          </button>
+          </b-button>
         </div>
         <div class="panel-block">
-          <button
-            class="button is-link is-outlined is-fullwidth"
+          <b-button
+            class="is-fullwidth"
+            type="is-danger"
+            outlined
             :disabled="isPause"
             @click="pause"
           >
             中断
-          </button>
+          </b-button>
         </div>
         <div class="panel-block">
-          <button
-            class="button is-link is-outlined is-fullwidth"
-            @click="clear"
-          >
+          <b-button class="is-fullwidth" type="is-link" outlined @click="clear">
             リセット
-          </button>
+          </b-button>
         </div>
       </template>
       <div v-else class="panel-block">
-        <button class="button is-link is-outlined is-fullwidth" @click="start">
+        <b-button
+          class="is-fullwidth"
+          type="is-success"
+          outlined
+          @click="start"
+        >
           開始
-        </button>
+        </b-button>
       </div>
     </template>
-    <div v-else-if="$store.getters['schedule/isCreated']" class="panel-block">
-      スケジュールを再作成してください。
-    </div>
-    <div v-else class="panel-block">
-      スケジュールを作成してください。
-    </div>
   </collapse-panel>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import CollapsePanel from '~/components/CollapsePanel'
 export default {
   components: {
     CollapsePanel
   },
   computed: {
-    elapsed() {
-      return this.$store.state.timer.elapsed
-    },
-    paused() {
-      return this.$store.state.timer.paused
-    },
-    pausedCount() {
-      return this.$store.state.timer.pausedCount
-    },
-    isPause() {
-      return this.$store.state.timer.isPause
-    },
-    currentSchedule() {
-      return this.$store.getters['schedule/current']
-    }
+    ...mapGetters('timer', ['isPause', 'timeStr', 'end', 'isStarted']),
+    ...mapGetters('schedule', ['isCompleted', 'isEmpty'])
   },
-  methods: {
-    start() {
-      // タイマー開始
-      this.$store.commit('timer/start', this.currentSchedule.time)
-    },
-    restart() {
-      this.$store.commit('timer/restart')
-    },
-    pause() {
-      this.$store.commit('timer/pause')
-    },
-    stop() {
-      this.$store.commit('timer/stop')
-      this.$store.commit('schedule/sex')
-    },
-    clear() {
-      this.$store.commit('timer/clear')
-    }
-  }
+  methods: mapActions('timer', ['start', 'restart', 'pause', 'stop', 'clear'])
 }
 </script>
