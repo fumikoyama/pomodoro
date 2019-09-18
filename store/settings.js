@@ -1,5 +1,5 @@
 const DEF_NAME = null
-const DEF_TODO = true
+const DEF_USE_TODO = true
 const DEF_POMOTIME = 25
 const DEF_SMALL_BREAK_TIME = 5
 const DEF_POMO_COUNT = 4
@@ -7,7 +7,7 @@ const DEF_BREAK_TIME = 30
 
 export const state = () => ({
   name: DEF_NAME,
-  todo: DEF_TODO,
+  useTodo: DEF_USE_TODO,
   pomoTime: DEF_POMOTIME,
   smallBreakTime: DEF_SMALL_BREAK_TIME,
   pomoCount: DEF_POMO_COUNT,
@@ -18,8 +18,8 @@ export const mutations = {
   setName(state, value) {
     state.name = value
   },
-  setTodo(state, value) {
-    state.todo = value
+  setUseTodo(state, value) {
+    state.useTodo = value
   },
   setPomoTime(state, value) {
     state.pomoTime = value
@@ -36,7 +36,7 @@ export const mutations = {
   clear(state) {
     // 設定項目をクリア
     state.name = DEF_NAME
-    state.todo = DEF_TODO
+    state.useTodo = DEF_USE_TODO
     state.pomoTime = DEF_POMOTIME
     state.smallBreakTime = DEF_SMALL_BREAK_TIME
     state.pomoCount = DEF_POMO_COUNT
@@ -46,7 +46,7 @@ export const mutations = {
 
 export const getters = {
   todoStr(state) {
-    return state.todo === true ? '使う' : '使わない'
+    return state.useTodo === true ? '使う' : '使わない'
   },
   pomoSettings(state) {
     return {

@@ -1,6 +1,6 @@
 <template>
   <collapse-panel icon="delete" :title="title">
-    <div v-if="items.length === 0" class="panel-block">
+    <div v-if="isEmpty" class="panel-block">
       中に誰もいませんよ
     </div>
     <todo-list-item
@@ -26,6 +26,9 @@ export default {
     },
     items() {
       return this.$store.getters['todo/deletedItems']
+    },
+    isEmpty() {
+      return this.items.length === 0
     }
   }
 }

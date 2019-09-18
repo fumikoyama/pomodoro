@@ -1,7 +1,7 @@
 <template>
   <b-tabs type="is-toggle" expanded>
     <b-tab-item
-      :visible="$store.state.settings.todo"
+      :visible="$store.state.settings.useTodo"
       label="Todos"
       icon="format-list-checkbox"
     >

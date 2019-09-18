@@ -9,8 +9,9 @@
       <div class="column">
         <room />
       </div>
-      <div class="column is-mobile is-6">
+      <div class="column">
         <timer />
+        <todo-select v-if="$store.state.settings.useTodo" />
         <schedule />
         <performance />
       </div>
@@ -23,12 +24,14 @@ import Schedule from '~/components/Schedule'
 import Performance from '~/components/Performance'
 import Room from '~/components/Room'
 import Timer from '~/components/Timer'
+import TodoSelect from '~/components/TodoSelect'
 export default {
   components: {
     Schedule,
     Performance,
     Room,
-    Timer
+    Timer,
+    TodoSelect
   }
 }
 </script>
