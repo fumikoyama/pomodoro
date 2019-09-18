@@ -16,7 +16,8 @@ export const state = () => ({
   rawEditData: {
     date: null,
     note: null
-  }
+  },
+  selectedId: 0
 })
 
 export const mutations = {
@@ -31,6 +32,12 @@ export const mutations = {
     const todo = state.list.find((x) => x.id === id)
     // チェック状態を変更
     todo.checked = value
+    if (id === state.selectedId) {
+      state.selectedId = 0
+    }
+  },
+  setSelectedId(state, value) {
+    state.selectedId = value
   },
   add(state) {
     // リスト内で最大値のidを取得する関数
@@ -57,6 +64,10 @@ export const mutations = {
     // 編集中の場合は編集データをクリア
     if (state.editData.id === todo.id) {
       clearEdit(state)
+    }
+    // 選択中の場合はクリア
+    if (id === state.selectedId) {
+      state.selectedId = 0
     }
   },
   restore(state, id) {
@@ -105,7 +116,7 @@ export const getters = {
     return state.list.filter((x) => !x.checked && !x.deleted)
   },
   deletedItems(state) {
-    // 削除済み項目の未取得
+    // 削除済み項目のみ取得
     return state.list.filter((x) => x.deleted)
   },
   canCommit(state) {
