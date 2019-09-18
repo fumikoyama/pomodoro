@@ -1,7 +1,14 @@
 <template>
   <collapse-panel icon="format-list-checkbox" title="Todo">
     <div v-if="isEmpty" class="panel-block">
-      Todo を作成してください
+      <b-button
+        class="is-fullwidth"
+        type="is-primary"
+        outlined
+        @click="showTodos"
+      >
+        Todo を作成してください
+      </b-button>
     </div>
     <template v-else>
       <div class="panel-block">
@@ -19,13 +26,15 @@
         </b-select>
       </div>
       <div class="panel-block">
-        <button
-          class="button is-link is-outlined is-fullwidth"
+        <b-button
+          class="is-fullwidth"
+          type="is-link"
+          outlined
           :disabled="selectedId === 0"
           @click="update"
         >
           完了
-        </button>
+        </b-button>
       </div>
     </template>
   </collapse-panel>
@@ -64,6 +73,9 @@ export default {
           })
         }
       })
+    },
+    showTodos() {
+      this.$store.commit('tabs/showTodo')
     },
     todoStr(item) {
       return item.date.toLocaleDateString() + ' ' + item.note

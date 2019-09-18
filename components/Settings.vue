@@ -47,9 +47,9 @@
       ></b-numberinput>
     </b-field>
     <br />
-    <button class="button is-link is-outlined is-fullwidth" @click="clear">
+    <b-button class="is-fullwidth" type="is-link" outlined @click="clear">
       デフォルトに戻す
-    </button>
+    </b-button>
   </section>
 </template>
 

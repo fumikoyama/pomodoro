@@ -1,5 +1,5 @@
 <template>
-  <section class="section container">
+  <section class="section">
     <h1 class="title">
       <b-icon icon="home"></b-icon>
       ホーム
@@ -7,12 +7,14 @@
     <hr />
     <div class="columns">
       <div class="column">
+        <timer />
+        <schedule />
+      </div>
+      <div class="column is-5">
         <room />
       </div>
       <div class="column">
-        <timer />
         <todo-select v-if="$store.state.settings.useTodo" />
-        <schedule />
         <performance />
       </div>
     </div>

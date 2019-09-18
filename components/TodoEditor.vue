@@ -15,25 +15,29 @@
     </div>
     <div class="panel-block">
       <template v-if="id">
-        <button class="button is-link is-outlined is-fullwidth" @click="cancel">
+        <b-button class="is-fullwidth" type="is-link" outlined @click="cancel">
           Cancel
-        </button>
-        <button
-          class="button is-link is-outlined is-fullwidth"
+        </b-button>
+        <b-button
+          class="is-fullwidth"
+          type="is-link"
+          outlined
           :disabled="disabled"
           @click="update"
         >
           Edit
-        </button>
+        </b-button>
       </template>
-      <button
+      <b-button
         v-else
-        class="button is-link is-outlined is-fullwidth"
+        class="is-fullwidth"
+        type="is-link"
+        outlined
         :disabled="disabled"
         @click="add"
       >
         Add
-      </button>
+      </b-button>
     </div>
   </collapse-panel>
 </template>
