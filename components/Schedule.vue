@@ -6,16 +6,17 @@
       :item="item"
     />
     <div class="panel-block">
-      <button
+      <b-button
         v-if="list.length === 0"
-        class="button is-success is-fullwidth"
+        class="is-fullwidth"
+        type="is-success"
         @click="create"
       >
         スケジュールの作成
-      </button>
-      <button v-else class="button is-info is-fullwidth" @click="recreate">
+      </b-button>
+      <b-button v-else class="is-fullwidth" type="is-info" @click="recreate">
         スケジュールの再作成
-      </button>
+      </b-button>
     </div>
   </collapse-panel>
 </template>
