@@ -66,10 +66,10 @@ export default {
     },
     todo: {
       get() {
-        return this.$store.state.settings.todo
+        return this.$store.state.settings.useTodo
       },
       set(value) {
-        this.$store.commit('settings/setTodo', value)
+        this.$store.commit('settings/setUseTodo', value)
       }
     },
     pomoTime: {
