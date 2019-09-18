@@ -1,5 +1,5 @@
 <template>
-  <b-tabs type="is-toggle" expanded>
+  <b-tabs v-model="activeTab" type="is-toggle" expanded>
     <b-tab-item
       :visible="$store.state.settings.useTodo"
       label="Todos"
@@ -26,6 +26,16 @@ export default {
     TodoList,
     Home,
     Settings
+  },
+  computed: {
+    activeTab: {
+      get() {
+        return this.$store.state.tabs.activeTab
+      },
+      set(value) {
+        this.$store.commit('tabs/setActiveTab', value)
+      }
+    }
   }
 }
 </script>
