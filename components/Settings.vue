@@ -10,7 +10,7 @@
     </b-field>
     <b-field label="TODOリスト使う？">
       <b-switch v-model="todo">
-        {{ $store.getters['settings/todoStr'] }}
+        {{ todoStr }}
       </b-switch>
     </b-field>
     <b-field label="1ポモどれくらいにする？">
@@ -54,14 +54,16 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
+    ...mapGetters('settings', ['todoStr']),
     name: {
       get() {
         return this.$store.state.settings.name
       },
       set(value) {
-        this.$store.commit('settings/setName', value)
+        this.setName(value)
       }
     },
     todo: {
@@ -69,7 +71,7 @@ export default {
         return this.$store.state.settings.useTodo
       },
       set(value) {
-        this.$store.commit('settings/setUseTodo', value)
+        this.setUseTodo(value)
       }
     },
     pomoTime: {
@@ -77,7 +79,7 @@ export default {
         return this.$store.state.settings.pomoTime
       },
       set(value) {
-        this.$store.commit('settings/setPomoTime', value)
+        this.setPomoTime(value)
       }
     },
     smallBreakTime: {
@@ -85,7 +87,7 @@ export default {
         return this.$store.state.settings.smallBreakTime
       },
       set(value) {
-        this.$store.commit('settings/setSmallBreakTime', value)
+        this.setSmallBreakTime(value)
       }
     },
     pomoCount: {
@@ -93,7 +95,7 @@ export default {
         return this.$store.state.settings.pomoCount
       },
       set(value) {
-        this.$store.commit('settings/setPomoCount', value)
+        this.setPomoCount(value)
       }
     },
     breakTime: {
@@ -101,18 +103,18 @@ export default {
         return this.$store.state.settings.breakTime
       },
       set(value) {
-        this.$store.commit('settings/setBreakTime', value)
+        this.setBreakTime(value)
       }
     }
   },
-  methods: {
-    clear() {
-      this.$buefy.dialog.confirm({
-        message: `デフォルトに戻してもいい？`,
-        type: 'is-danger',
-        onConfirm: () => this.$store.commit('settings/clear')
-      })
-    }
-  }
+  methods: mapActions('settings', [
+    'setName',
+    'setUseTodo',
+    'setPomoTime',
+    'setSmallBreakTime',
+    'setPomoCount',
+    'setBreakTime',
+    'clear'
+  ])
 }
 </script>

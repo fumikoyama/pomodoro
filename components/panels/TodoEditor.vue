@@ -43,54 +43,40 @@
 </template>
 
 <script>
-import CollapsePanel from '~/components/CollapsePanel'
+import { mapState, mapActions } from 'vuex'
+import CollapsePanel from '~/components/common/CollapsePanel'
 export default {
   components: {
     CollapsePanel
   },
   computed: {
-    title() {
-      return this.id ? '編集' : '追加'
-    },
+    ...mapState('todo', ['editData']),
     id() {
-      return this.$store.state.todo.editData.id
+      return this.editData.id
     },
     date: {
       get() {
-        return this.$store.state.todo.editData.date
+        return this.editData.date
       },
       set(value) {
-        this.$store.commit('todo/setDate', value)
+        this.setDate(value)
       }
     },
     note: {
       get() {
-        return this.$store.state.todo.editData.note
+        return this.editData.note
       },
       set(value) {
-        this.$store.commit('todo/setNote', value)
+        this.setNote(value)
       }
+    },
+    title() {
+      return this.id ? '編集' : '追加'
     },
     disabled() {
       return !this.$store.getters['todo/canCommit']
     }
   },
-  methods: {
-    add() {
-      this.$store.commit('todo/add')
-    },
-    update() {
-      this.$buefy.dialog.confirm({
-        message: '更新……する?',
-        onConfirm: () => this.$store.commit('todo/update')
-      })
-    },
-    cancel() {
-      this.$buefy.dialog.confirm({
-        message: '編集……やめる?',
-        onConfirm: () => this.$store.commit('todo/cancel')
-      })
-    }
-  }
+  methods: mapActions('todo', ['add', 'setNote', 'setDate', 'update', 'cancel'])
 }
 </script>

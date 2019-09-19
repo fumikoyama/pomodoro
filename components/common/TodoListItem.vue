@@ -9,10 +9,18 @@
     <div class="content-right">
       <template v-if="item.deleted">
         <b-tooltip label="元に戻す" type="is-dark">
-          <b-button type="is-success" icon-right="restore" @click="restore" />
+          <b-button
+            type="is-success"
+            icon-right="restore"
+            @click="restore(item.id)"
+          />
         </b-tooltip>
         <b-tooltip label="この世から消す" type="is-dark">
-          <b-button type="is-danger" icon-right="delete" @click="destory" />
+          <b-button
+            type="is-danger"
+            icon-right="delete"
+            @click="destory(item.id)"
+          />
         </b-tooltip>
       </template>
       <template v-else>
@@ -21,11 +29,15 @@
             type="is-success"
             icon-right="pencil"
             :disabled="isEdit"
-            @click="edit"
+            @click="edit(item.id)"
           />
         </b-tooltip>
         <b-tooltip label="ゴミ箱に入れる" type="is-dark">
-          <b-button type="is-danger" icon-right="delete" @click="remove" />
+          <b-button
+            type="is-danger"
+            icon-right="delete"
+            @click="remove(item.id)"
+          />
         </b-tooltip>
       </template>
     </div>
@@ -33,16 +45,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     item: { type: Object, default: null }
   },
   computed: {
+    ...mapState('todo', ['editData']),
+    isEdit() {
+      return this.item.id === this.editData.id
+    },
     style() {
       return { 'has-background-grey-lighter': this.isEdit }
-    },
-    isEdit() {
-      return this.item.id === this.$store.state.todo.editData.id
     },
     text() {
       return `${this.item.date.toLocaleDateString()}\n${this.item.note}`
@@ -52,40 +66,17 @@ export default {
         return this.item.checked
       },
       set(value) {
-        this.$store.commit('todo/changeCheckState', {
-          id: this.item.id,
-          value
-        })
+        this.changeCheckState({ id: this.item.id, value })
       }
     }
   },
-  methods: {
-    remove() {
-      const rem = () => this.$store.commit('todo/remove', this.item.id)
-      if (this.isEdit) {
-        this.$buefy.dialog.confirm({
-          message: '編集中だよ？……ゴミ箱に入れる?',
-          type: 'is-danger',
-          onConfirm: rem
-        })
-      } else {
-        rem()
-      }
-    },
-    destory() {
-      this.$buefy.dialog.confirm({
-        message: 'こいつ邪魔……消していい?',
-        type: 'is-danger',
-        onConfirm: () => this.$store.commit('todo/destory', this.item.id)
-      })
-    },
-    restore() {
-      this.$store.commit('todo/restore', this.item.id)
-    },
-    edit() {
-      this.$store.commit('todo/edit', this.item.id)
-    }
-  }
+  methods: mapActions('todo', [
+    'changeCheckState',
+    'remove',
+    'destory',
+    'restore',
+    'edit'
+  ])
 }
 </script>
 

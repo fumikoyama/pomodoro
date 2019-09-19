@@ -7,7 +7,7 @@
     >
       <todo-list />
     </b-tab-item>
-    <b-tab-item label="Home" icon="home">
+    <b-tab-item label="Home" :icon="homeIcon">
       <home />
     </b-tab-item>
     <b-tab-item label="Settings" icon="tune">
@@ -17,10 +17,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import TodoList from '~/components/TodoList'
 import Home from '~/components/Home'
 import Settings from '~/components/Settings'
-
 export default {
   components: {
     TodoList,
@@ -28,14 +28,19 @@ export default {
     Settings
   },
   computed: {
+    ...mapGetters('timer', ['isEnd']),
+    homeIcon() {
+      return this.isEnd ? 'bell-ring' : 'home'
+    },
     activeTab: {
       get() {
         return this.$store.state.tabs.activeTab
       },
       set(value) {
-        this.$store.commit('tabs/setActiveTab', value)
+        this.setActiveTab(value)
       }
     }
-  }
+  },
+  methods: mapActions('tabs', ['setActiveTab'])
 }
 </script>

@@ -1,3 +1,5 @@
+import { DialogProgrammatic as Dialog } from 'buefy'
+
 const DEF_NAME = null
 const DEF_USE_TODO = true
 const DEF_POMOTIME = 25
@@ -55,5 +57,33 @@ export const getters = {
       pomoCount: state.pomoCount,
       breakTime: state.breakTime
     }
+  }
+}
+
+export const actions = {
+  setName({ commit }, value) {
+    commit('setName', value)
+  },
+  setUseTodo({ commit }, value) {
+    commit('setUseTodo', value)
+  },
+  setPomoTime({ commit }, value) {
+    commit('setPomoTime', value)
+  },
+  setSmallBreakTime({ commit }, value) {
+    commit('setSmallBreakTime', value)
+  },
+  setPomoCount({ commit }, value) {
+    commit('setPomoCount', value)
+  },
+  setBreakTime({ commit }, value) {
+    commit('setBreakTime', value)
+  },
+  clear({ commit }) {
+    Dialog.confirm({
+      message: `デフォルトに戻してもいい？`,
+      type: 'is-danger',
+      onConfirm: () => commit('clear')
+    })
   }
 }

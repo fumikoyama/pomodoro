@@ -14,7 +14,7 @@
         <room />
       </div>
       <div class="column">
-        <todo-select v-if="$store.state.settings.useTodo" />
+        <todo-select v-if="useTodo" />
         <performance />
       </div>
     </div>
@@ -22,11 +22,12 @@
 </template>
 
 <script>
-import Schedule from '~/components/Schedule'
-import Performance from '~/components/Performance'
-import Room from '~/components/Room'
-import Timer from '~/components/Timer'
-import TodoSelect from '~/components/TodoSelect'
+import { mapState } from 'vuex'
+import Schedule from '~/components/panels/Schedule'
+import Performance from '~/components/panels/Performance'
+import Room from '~/components/panels/Room'
+import Timer from '~/components/panels/Timer'
+import TodoSelect from '~/components/panels/TodoSelect'
 export default {
   components: {
     Schedule,
@@ -34,6 +35,7 @@ export default {
     Room,
     Timer,
     TodoSelect
-  }
+  },
+  computed: mapState('settings', ['useTodo'])
 }
 </script>

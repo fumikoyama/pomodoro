@@ -6,7 +6,16 @@ export const mutations = {
   setActiveTab(state, value) {
     state.activeTab = value
   },
-  showTodo(state) {
+  showTodos(state) {
     state.activeTab = 0
+  }
+}
+
+export const actions = {
+  setActiveTab({ commit }, value) {
+    commit('setActiveTab', value)
+  },
+  showTodos({ commit }) {
+    commit('showTodos')
   }
 }

@@ -1,3 +1,5 @@
+import { DialogProgrammatic as Dialog } from 'buefy'
+
 const clearEdit = (state) => {
   // 編集データをクリア
   state.editData.id = null
@@ -42,8 +44,12 @@ export const mutations = {
   add(state) {
     // リスト内で最大値のidを取得する関数
     const max = () => {
-      if (state.list.length === 0) return 0
-      else return Math.max(...state.list.map((x) => x.id))
+      // リストが空の場合は０を返す
+      if (state.list.length === 0) {
+        return 0
+      }
+      // 上記以外
+      return Math.max(...state.list.map((x) => x.id))
     }
     // リストに追加
     state.list.push({
@@ -128,9 +134,63 @@ export const getters = {
         (state.rawEditData.note !== state.editData.note ||
           state.rawEditData.date !== state.editData.date)
       )
-    } else {
-      // 上記以外
-      return state.editData.note && state.editData.date
     }
+    // 上記以外
+    return state.editData.note && state.editData.date
+  }
+}
+
+export const actions = {
+  changeCheckState({ commit }, payload) {
+    commit('changeCheckState', payload)
+  },
+  setSelectedId({ commit }, value) {
+    commit('setSelectedId', value)
+  },
+  add({ commit }) {
+    commit('add')
+  },
+  setNote({ commit }, value) {
+    commit('setNote', value)
+  },
+  setDate({ commit }, value) {
+    commit('setDate', value)
+  },
+  update({ commit }) {
+    Dialog.confirm({
+      message: '更新……する?',
+      onConfirm: () => commit('update')
+    })
+  },
+  cancel({ commit }) {
+    Dialog.confirm({
+      message: '編集……やめる?',
+      onConfirm: () => commit('cancel')
+    })
+  },
+  remove({ state, commit }, id) {
+    const rem = () => commit('remove', id)
+    if (id === state.editData.id) {
+      Dialog.confirm({
+        message: '編集中だよ？……ゴミ箱に入れる?',
+        type: 'is-danger',
+        onConfirm: rem
+      })
+    } else {
+      rem()
+    }
+  },
+  destory({ commit }, id) {
+    Dialog.confirm({
+      message: 'こいつ邪魔……消していい?',
+      type: 'is-danger',
+      onConfirm: () => commit('destory', id)
+    })
+  },
+  restore({ commit }, id) {
+    commit('restore', id)
+  },
+  edit({ commit }, id) {
+    commit('edit', id)
   }
 }

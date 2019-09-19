@@ -7,7 +7,7 @@
     />
     <div class="panel-block">
       <b-button
-        v-if="list.length === 0"
+        v-if="isEmpty"
         class="is-fullwidth"
         type="is-success"
         @click="create"
@@ -22,31 +22,25 @@
 </template>
 
 <script>
-import CollapsePanel from '~/components/CollapsePanel'
-import ScheduleItem from '~/components/ScheduleItem'
+import { mapState, mapGetters, mapActions } from 'vuex'
+import CollapsePanel from '~/components/common/CollapsePanel'
+import ScheduleItem from '~/components/common/ScheduleItem'
 export default {
   components: {
     CollapsePanel,
     ScheduleItem
   },
   computed: {
-    list() {
-      return this.$store.state.schedule.list
-    }
+    ...mapState('schedule', ['list']),
+    ...mapGetters('schedule', ['isEmpty'])
   },
   methods: {
-    create() {
-      const settings = this.$store.getters['settings/pomoSettings']
-      this.$store.commit('schedule/create', settings)
-    },
+    ...mapActions('schedule', ['create']),
     recreate() {
       this.$buefy.dialog.confirm({
-        message: 'スケージュール作り直す?',
+        message: 'スケジュール作り直す?',
         type: 'is-danger',
-        onConfirm: () => {
-          const settings = this.$store.getters['settings/pomoSettings']
-          this.$store.commit('schedule/create', settings)
-        }
+        onConfirm: () => this.create()
       })
     }
   }

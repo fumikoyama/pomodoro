@@ -13,19 +13,18 @@
 </template>
 
 <script>
-import CollapsePanel from '~/components/CollapsePanel'
-import TodoListItem from '~/components/TodoListItem'
+import { mapGetters } from 'vuex'
+import CollapsePanel from '~/components/common/CollapsePanel'
+import TodoListItem from '~/components/common/TodoListItem'
 export default {
   components: {
     CollapsePanel,
     TodoListItem
   },
   computed: {
+    ...mapGetters('todo', { items: 'completedItems' }),
     title() {
       return `完了（${this.items.length}）`
-    },
-    items() {
-      return this.$store.getters['todo/completedItems']
     },
     isEmpty() {
       return this.items.length === 0
