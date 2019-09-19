@@ -42,6 +42,9 @@ export const getters = {
     // リストサイズが0なら空
     return state.list.length === 0
   },
+  isBreak(state, getters) {
+    return getters.current.break
+  },
   isCompleted(state) {
     return state.list.every((x) => x.completed)
   }

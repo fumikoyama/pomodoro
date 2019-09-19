@@ -38,7 +38,7 @@
         </div>
         <div class="panel-block">
           <b-button class="is-fullwidth" type="is-link" outlined @click="clear">
-            リセット
+            <b-icon icon="step-backward"></b-icon>
           </b-button>
         </div>
       </template>
@@ -74,7 +74,7 @@ export default {
       'isEnd',
       'isStarted'
     ]),
-    ...mapGetters('schedule', ['isCompleted', 'isEmpty']),
+    ...mapGetters('schedule', ['isCompleted', 'isEmpty', 'isBreak']),
     icon() {
       if (this.isPause || !this.isStarted) {
         return 'timer-off'
