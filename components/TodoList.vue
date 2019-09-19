@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import TodoCompletedList from '~/components/TodoCompletedList'
-import TodoIncompleteList from '~/components/TodoIncompleteList'
-import TodoTrash from '~/components/TodoTrash'
-import TodoEditor from '~/components/TodoEditor'
+import TodoCompletedList from '~/components/panels/TodoCompletedList'
+import TodoIncompleteList from '~/components/panels/TodoIncompleteList'
+import TodoTrash from '~/components/panels/TodoTrash'
+import TodoEditor from '~/components/panels/TodoEditor'
 export default {
   components: {
     TodoCompletedList,

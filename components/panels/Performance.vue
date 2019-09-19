@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import CollapsePanel from '~/components/CollapsePanel'
+import CollapsePanel from '~/components/common/CollapsePanel'
 export default {
   components: {
     CollapsePanel

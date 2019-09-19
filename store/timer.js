@@ -114,13 +114,15 @@ export const getters = {
   isPause(state) {
     return state.timerState === TIMER_STATE.PAUSE
   },
-  end(state) {
+  isEnd(state) {
     return state.timerState !== TIMER_STATE.STOPED && state.elapsed.min < 0
   },
-  timeStr(state) {
+  elapsedStr(state) {
     const p = (v) => ('0' + v).slice(-2)
-    const e = `${p(state.elapsed.min)}:${p(state.elapsed.sec)}`
-    const d = `${p(state.disturbed.min)}:${p(state.disturbed.sec)}`
-    return `${e}(${d})`
+    return `${p(state.elapsed.min)}:${p(state.elapsed.sec)}`
+  },
+  disturbedStr(state) {
+    const p = (v) => ('0' + v).slice(-2)
+    return `${p(state.disturbed.min)}:${p(state.disturbed.sec)}`
   }
 }

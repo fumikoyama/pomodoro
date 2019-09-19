@@ -23,8 +23,8 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import CollapsePanel from '~/components/CollapsePanel'
-import ScheduleItem from '~/components/ScheduleItem'
+import CollapsePanel from '~/components/common/CollapsePanel'
+import ScheduleItem from '~/components/common/ScheduleItem'
 export default {
   components: {
     CollapsePanel,

@@ -23,11 +23,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import Schedule from '~/components/Schedule'
-import Performance from '~/components/Performance'
-import Room from '~/components/Room'
-import Timer from '~/components/Timer'
-import TodoSelect from '~/components/TodoSelect'
+import Schedule from '~/components/panels/Schedule'
+import Performance from '~/components/panels/Performance'
+import Room from '~/components/panels/Room'
+import Timer from '~/components/panels/Timer'
+import TodoSelect from '~/components/panels/TodoSelect'
 export default {
   components: {
     Schedule,
