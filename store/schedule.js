@@ -10,8 +10,7 @@ export const mutations = {
         {
           no,
           title: `${no}ポモ目`,
-          time: 0,
-          // time: pomoTime,
+          time: pomoTime,
           break: false,
           completed: false
         },
