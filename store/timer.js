@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 const TIMER_STATE = {
   RUNNNING: 0,
   PAUSE: 1,
@@ -27,7 +29,9 @@ export const state = () => ({
   elapsed: 0,
   disturbed: 0,
   startedTimeStamp: null,
-  timerState: TIMER_STATE.STOPED
+  timerState: TIMER_STATE.STOPED,
+  sex: null,
+  prevTime: null
 })
 
 export const getters = {
@@ -53,15 +57,23 @@ export const getters = {
 
 export const mutations = {
   start(state, seconds) {
+    const now = dayjs()
     state.elapsed = seconds
-    state.startedTimeStamp = new Date().toLocaleString()
+    state.startedTimeStamp = now.format()
     state.timerState = TIMER_STATE.RUNNNING
+    state.prevTime = now
   },
   updateElapsed(state) {
-    state.elapsed--
+    const now = dayjs()
+    const diff = ~~(now.diff(state.prevTime) / 1000)
+    state.elapsed -= diff
+    state.prevTime = now
   },
   updateDisturbed(state) {
-    state.disturbed++
+    const now = dayjs()
+    const diff = ~~(now.diff(state.prevTime) / 1000)
+    state.disturbed += diff
+    state.prevTime = now
   },
   restart(state) {
     state.timerState = TIMER_STATE.RUNNNING
