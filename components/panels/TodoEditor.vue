@@ -11,8 +11,9 @@
       <b-datepicker
         v-model="date"
         placeholder="日付を入力してね。"
-        :date-parser="dateParser"
-        :date-creator="dateCreator"
+        :mobile-native="false"
+        :month-names="monthNames"
+        :day-names="dayNames"
       ></b-datepicker>
     </div>
     <div class="panel-block">
@@ -51,6 +52,12 @@ export default {
   components: {
     CollapsePanel
   },
+  data() {
+    return {
+      monthNames: [...Array(12)].map((_, i) => `${i + 1}月`),
+      dayNames: ['日', '月', '火', '水', '木', '金', '土']
+    }
+  },
   computed: {
     ...mapState('todo', ['editData']),
     id() {
@@ -79,15 +86,6 @@ export default {
       return !this.$store.getters['todo/canCommit']
     }
   },
-  methods: {
-    ...mapActions('todo', ['add', 'setNote', 'setDate', 'update', 'cancel']),
-    dateCreator() {
-      return this.$dayjs().toDate()
-    },
-    dateParser(date) {
-      const d = this.$dayjs(date).format('YYYY/MM/DD')
-      return new Date(Date.parse(d))
-    }
-  }
+  methods: mapActions('todo', ['add', 'setNote', 'setDate', 'update', 'cancel'])
 }
 </script>
