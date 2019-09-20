@@ -22,7 +22,7 @@ export default {
     TodoListItem
   },
   computed: {
-    ...mapGetters('todo', { items: 'deletedItems' }),
+    ...mapGetters('todos', { items: 'deletedItems' }),
     title() {
       return `ゴミ箱（${this.items.length}）`
     },

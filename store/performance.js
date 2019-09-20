@@ -1,3 +1,5 @@
+import { DialogProgrammatic as Dialog } from 'buefy'
+
 const toMinute = (seconds) => {
   return {
     min: ~~(seconds / 60) % 60,
@@ -23,7 +25,8 @@ export const state = () => ({
   elapsedLog: [],
   disturbedLog: [],
   breakTimeLog: [],
-  overTimeLog: []
+  overTimeLog: [],
+  isActive: false
 })
 
 export const getters = {
@@ -47,10 +50,33 @@ export const getters = {
   },
   totalOverTime(state) {
     return formatTime(state.overTimeLog)
+  },
+  canClear(state, getters, rootState, rootGetters) {
+    // 起動中は不可
+    if (rootGetters['timer/isStarted']) {
+      return false
+    }
+    // console.log(getters.totalPomoCount)
+    // 未編集の場合は不可
+    if (
+      getters.totalPomoCount === 0 &&
+      getters.totalDisturbedCount === 0 &&
+      getters.totalBreakCount === 0 &&
+      state.overTimeLog.length === 0
+    ) {
+      return false
+    }
+    return true
   }
 }
 
 export const mutations = {
+  open(state) {
+    state.isActive = true
+  },
+  close(state) {
+    state.isActive = false
+  },
   addDisturbedLog(state) {
     // 中断ログの更新
     state.disturbedLog.push({
@@ -93,10 +119,22 @@ export const mutations = {
   },
   updateOverTime(state, { seconds, timestamp }) {
     state.overTimeLog.push({ seconds, timestamp })
+  },
+  clear(state) {
+    state.elapsedLog = []
+    state.disturbedLog = []
+    state.breakTimeLog = []
+    state.overTimeLog = []
   }
 }
 
 export const actions = {
+  open({ commit }) {
+    commit('open')
+  },
+  close({ commit }) {
+    commit('close')
+  },
   addDisturbedLog({ commit }) {
     // 中断ログの追加
     commit('addDisturbedLog')
@@ -141,5 +179,12 @@ export const actions = {
       // 中断ログのリセット
       commit('deleteDisturbedLog')
     }
+  },
+  clear({ commit }) {
+    Dialog.confirm({
+      message: `実績……なかったことにしちゃう？`,
+      type: 'is-danger',
+      onConfirm: () => commit('clear')
+    })
   }
 }

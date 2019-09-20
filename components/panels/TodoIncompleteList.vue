@@ -22,7 +22,7 @@ export default {
     TodoListItem
   },
   computed: {
-    ...mapGetters('todo', { items: 'incompleteItems' }),
+    ...mapGetters('todos', { items: 'incompleteItems' }),
     title() {
       return `未完了（${this.items.length}）`
     },

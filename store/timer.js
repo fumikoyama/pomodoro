@@ -22,20 +22,6 @@ const formatTime = (seconds) => {
   }
   return str
 }
-const loop = (func, delay) => {
-  // ループのコア関数
-  const core = (resolve, reject) =>
-    func()
-      .then((result) => {
-        // 実行結果がtrueの場合はループ終了
-        if (result) return resolve(result)
-        // 上記以外はループ継続
-        return setTimeout(() => core(resolve, reject), delay)
-      })
-      .catch(reject)
-  // ループの起点
-  return new Promise(core)
-}
 
 export const state = () => ({
   elapsed: 0,
@@ -93,34 +79,53 @@ export const mutations = {
 
 export const actions = {
   async start({ commit, dispatch, state, rootGetters }) {
-    const func = async () => {
+    // タイマー用のループ処理
+    const loop = (func, delay) => {
+      // ループのコア関数
+      const core = (resolve, reject) =>
+        func()
+          .then((result) => {
+            // 実行結果がtrueの場合はループ終了
+            if (result) return resolve(result)
+            // 上記以外はループ継続
+            return setTimeout(() => core(resolve, reject), delay)
+          })
+          .catch(reject)
+      // ループの起点
+      return new Promise(core)
+    }
+    // 中断タイマー用の関数
+    const pauseTimer = async () => {
+      // 中断ログの更新
+      dispatch('performance/addDisturbedLog', null, { root: true })
+      // 中断用のループ処理を実行
+      await loop(() => {
+        // 中断の場合は更新
+        if (state.timerState === TIMER_STATE.PAUSE) {
+          commit('updateDisturbed')
+        }
+        // 中断以外の場合はタイマー停止
+        return Promise.resolve(state.timerState !== TIMER_STATE.PAUSE)
+      }, 1000)
+    }
+    // タイマー開始用の関数
+    const startTimer = async () => {
       // 稼働中の場合は経過時間を更新
       if (state.timerState === TIMER_STATE.RUNNNING) {
         commit('updateElapsed')
       }
       // 中断の場合は中断用のタイマーを起動
       if (state.timerState === TIMER_STATE.PAUSE) {
-        // 中断ログの更新
-        dispatch('performance/addDisturbedLog', null, { root: true })
-        // 中断用のループ処理を実行
-        await dispatch('paused')
+        // 中断処理の実行
+        await pauseTimer()
       }
       // 停止の場合はタイマー停止
       return Promise.resolve(state.timerState === TIMER_STATE.STOPED)
     }
+    // タイマーの初期設定
     commit('start', rootGetters['schedule/current'].time * 60)
-    await loop(func, 1000)
-  },
-  async paused({ commit, state }) {
-    const func = () => {
-      // 中断の場合は更新
-      if (state.timerState === TIMER_STATE.PAUSE) {
-        commit('updateDisturbed')
-      }
-      // 中断以外の場合はタイマー停止
-      return Promise.resolve(state.timerState !== TIMER_STATE.PAUSE)
-    }
-    await loop(func, 1000)
+    // ループ開始
+    await loop(startTimer, 1000)
   },
   restart({ commit, dispatch }) {
     // 実績の更新

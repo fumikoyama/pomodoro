@@ -51,7 +51,7 @@ export default {
     item: { type: Object, default: null }
   },
   computed: {
-    ...mapState('todo', ['editData']),
+    ...mapState('todos', ['editData']),
     isEdit() {
       return this.item.id === this.editData.id
     },
@@ -70,7 +70,7 @@ export default {
       }
     }
   },
-  methods: mapActions('todo', [
+  methods: mapActions('todos', [
     'changeCheckState',
     'remove',
     'destory',
