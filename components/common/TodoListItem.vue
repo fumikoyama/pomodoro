@@ -59,7 +59,7 @@ export default {
       return { 'has-background-grey-lighter': this.isEdit }
     },
     text() {
-      return `${this.item.date}\n${this.item.note}`
+      return `${this.item.date.toLocaleDateString()}\n${this.item.note}`
     },
     checked: {
       get() {
