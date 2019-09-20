@@ -4,15 +4,15 @@ const toMinute = (seconds) => {
     sec: ~~(seconds % 60)
   }
 }
+const padLeft = (v) => {
+  return Math.abs(v)
+    .toString()
+    .padStart(2, '0')
+}
 const formatTime = (time) => {
-  const pad = (v) => {
-    return Math.abs(v)
-      .toString()
-      .padStart(2, '0')
-  }
   const seconds = time.reduce((a, x) => a + x.seconds, 0)
   const { min, sec } = toMinute(seconds)
-  const str = `${pad(min)}分${pad(sec)}秒`
+  const str = `${padLeft(min)}分${padLeft(sec)}秒`
   if (seconds < 0) {
     return '-' + str
   }

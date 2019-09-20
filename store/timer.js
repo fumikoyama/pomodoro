@@ -9,14 +9,14 @@ const toMinute = (seconds) => {
     sec: ~~(seconds % 60)
   }
 }
+const padLeft = (v) => {
+  return Math.abs(v)
+    .toString()
+    .padStart(2, '0')
+}
 const formatTime = (seconds) => {
-  const pad = (v) => {
-    return Math.abs(v)
-      .toString()
-      .padStart(2, '0')
-  }
   const { min, sec } = toMinute(seconds)
-  const str = `${pad(min)}:${pad(sec)}`
+  const str = `${padLeft(min)}:${padLeft(sec)}`
   if (seconds < 0) {
     return '-' + str
   }
