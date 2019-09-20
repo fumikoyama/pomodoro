@@ -51,8 +51,11 @@ export const getters = {
   isPause(state) {
     return state.timerState === TIMER_STATE.PAUSE
   },
-  isEnd(state) {
+  isOver(state) {
     return state.timerState !== TIMER_STATE.STOPED && state.elapsed < 0
+  },
+  hasDisturbed(state) {
+    return state.disturbed > 0
   },
   elapsedStr(state) {
     return formatTime(state.elapsed)

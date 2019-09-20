@@ -122,22 +122,22 @@ export const actions = {
       })
     }
     // 中断があった場合
-    if (rootState.timer.disturbed > 0) {
+    if (rootGetters['timer/hasDisturbed']) {
       // 中断ログの更新
       commit('updateDisturbedLog', rootState.timer.disturbed)
       // 中断ログの保存
       commit('saveDisturbedLog', timestamp)
     }
     // 超過している時間がある場合
-    if (rootState.timer.elapsed < 0) {
+    if (rootGetters['timer/isOver']) {
       // 超過時間の加算
       const seconds = Math.abs(rootState.timer.elapsed)
       commit('updateOverTime', { seconds, timestamp })
     }
   },
-  restore({ commit, rootState }) {
+  restore({ commit, rootGetters }) {
     // 中断があった場合
-    if (rootState.timer.disturbed > 0) {
+    if (rootGetters['timer/hasDisturbed']) {
       // 中断ログのリセット
       commit('deleteDisturbedLog')
     }
