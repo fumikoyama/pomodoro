@@ -11,6 +11,8 @@
       <b-datepicker
         v-model="date"
         placeholder="日付を入力してね。"
+        :date-parser="dateParser"
+        :date-creator="dateCreator"
       ></b-datepicker>
     </div>
     <div class="panel-block">
@@ -77,6 +79,15 @@ export default {
       return !this.$store.getters['todo/canCommit']
     }
   },
-  methods: mapActions('todo', ['add', 'setNote', 'setDate', 'update', 'cancel'])
+  methods: {
+    ...mapActions('todo', ['add', 'setNote', 'setDate', 'update', 'cancel']),
+    dateCreator() {
+      return this.$dayjs().toDate()
+    },
+    dateParser(date) {
+      const d = this.$dayjs(date).format('YYYY/MM/DD')
+      return new Date(Date.parse(d))
+    }
+  }
 }
 </script>
