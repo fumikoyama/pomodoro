@@ -28,9 +28,9 @@ export default {
     Settings
   },
   computed: {
-    ...mapGetters('timer', ['isEnd']),
+    ...mapGetters('timer', ['isOver']),
     homeIcon() {
-      return this.isEnd ? 'bell-ring' : 'home'
+      return this.isOver ? 'bell-ring' : 'home'
     },
     activeTab: {
       get() {

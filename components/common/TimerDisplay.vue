@@ -18,14 +18,14 @@ export default {
       'isPause',
       'elapsedStr',
       'disturbedStr',
-      'isEnd',
+      'isOver',
       'isStarted'
     ]),
     style() {
       if (this.isPause) {
         return ['has-background-warning']
       }
-      if (this.isEnd) {
+      if (this.isOver) {
         return ['has-background-dark', 'has-text-danger']
       }
       return ['has-background-light']

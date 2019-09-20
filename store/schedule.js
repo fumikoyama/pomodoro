@@ -10,7 +10,8 @@ export const mutations = {
         {
           no,
           title: `${no}ポモ目`,
-          time: pomoTime,
+          time: 0,
+          // time: pomoTime,
           break: false,
           completed: false
         },
@@ -41,6 +42,9 @@ export const getters = {
   isEmpty(state) {
     // リストサイズが0なら空
     return state.list.length === 0
+  },
+  isBreak(state, getters) {
+    return getters.current.break
   },
   isCompleted(state) {
     return state.list.every((x) => x.completed)

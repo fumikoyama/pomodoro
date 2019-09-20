@@ -8,7 +8,7 @@
     </div>
     <template v-else>
       <timer-display />
-      <div v-if="isEnd" class="panel-block">
+      <div v-if="isOver" class="panel-block">
         <b-button class="is-fullwidth" type="is-danger" outlined @click="stop">
           <b-icon icon="stop" />
         </b-button>
@@ -38,7 +38,7 @@
         </div>
         <div class="panel-block">
           <b-button class="is-fullwidth" type="is-link" outlined @click="clear">
-            リセット
+            <b-icon icon="step-backward"></b-icon>
           </b-button>
         </div>
       </template>
@@ -71,10 +71,10 @@ export default {
       'isPause',
       'elapsedStr',
       'disturbedStr',
-      'isEnd',
+      'isOver',
       'isStarted'
     ]),
-    ...mapGetters('schedule', ['isCompleted', 'isEmpty']),
+    ...mapGetters('schedule', ['isCompleted', 'isEmpty', 'isBreak']),
     icon() {
       if (this.isPause || !this.isStarted) {
         return 'timer-off'
