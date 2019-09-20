@@ -1,12 +1,5 @@
 <template>
-  <b-tabs v-model="activeTab" type="is-toggle" expanded>
-    <b-tab-item
-      :visible="$store.state.settings.useTodo"
-      label="Todos"
-      icon="format-list-checkbox"
-    >
-      <todo-list />
-    </b-tab-item>
+  <b-tabs type="is-toggle" expanded>
     <b-tab-item label="Home" :icon="homeIcon">
       <home />
     </b-tab-item>
@@ -17,13 +10,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import TodoList from '~/components/TodoList'
+import { mapGetters } from 'vuex'
 import Home from '~/components/Home'
 import Settings from '~/components/Settings'
 export default {
   components: {
-    TodoList,
     Home,
     Settings
   },
@@ -31,16 +22,7 @@ export default {
     ...mapGetters('timer', ['isOver']),
     homeIcon() {
       return this.isOver ? 'bell-ring' : 'home'
-    },
-    activeTab: {
-      get() {
-        return this.$store.state.tabs.activeTab
-      },
-      set(value) {
-        this.setActiveTab(value)
-      }
     }
-  },
-  methods: mapActions('tabs', ['setActiveTab'])
+  }
 }
 </script>

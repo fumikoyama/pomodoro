@@ -59,7 +59,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('todo', ['editData']),
+    ...mapState('todos', ['editData']),
     id() {
       return this.editData.id
     },
@@ -83,9 +83,15 @@ export default {
       return this.id ? '編集' : '追加'
     },
     disabled() {
-      return !this.$store.getters['todo/canCommit']
+      return !this.$store.getters['todos/canCommit']
     }
   },
-  methods: mapActions('todo', ['add', 'setNote', 'setDate', 'update', 'cancel'])
+  methods: mapActions('todos', [
+    'add',
+    'setNote',
+    'setDate',
+    'update',
+    'cancel'
+  ])
 }
 </script>

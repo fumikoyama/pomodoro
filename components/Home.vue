@@ -7,35 +7,28 @@
     <hr />
     <div class="columns">
       <div class="column">
-        <timer />
-        <schedule />
-      </div>
-      <div class="column is-5">
         <room />
       </div>
       <div class="column">
-        <todo-select v-if="useTodo" />
-        <performance />
+        <timer />
+        <schedule />
+        <options />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import Schedule from '~/components/panels/Schedule'
-import Performance from '~/components/panels/Performance'
 import Room from '~/components/panels/Room'
 import Timer from '~/components/panels/Timer'
-import TodoSelect from '~/components/panels/TodoSelect'
+import Options from '~/components/panels/Options'
 export default {
   components: {
     Schedule,
-    Performance,
     Room,
     Timer,
-    TodoSelect
-  },
-  computed: mapState('settings', ['useTodo'])
+    Options
+  }
 }
 </script>
