@@ -14,7 +14,7 @@
         <div class="columns">
           <room class="column" />
           <timer class="column" />
-          <schedule class="column is-4" />
+          <schedule class="column" />
         </div>
       </div>
     </section>
