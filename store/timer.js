@@ -5,24 +5,20 @@ const TIMER_STATE = {
   PAUSE: 1,
   STOPED: 2
 }
-const toMinute = (seconds) => {
+const toTime = (seconds) => {
+  const s = Math.abs(seconds)
   return {
-    min: ~~(seconds / 60) % 60,
-    sec: ~~(seconds % 60)
+    hour: ~~(s / 60 / 60),
+    min: ~~(s / 60) % 60,
+    sec: ~~(s % 60),
+    sign: seconds < 0 ? '-' : ''
   }
-}
-const padLeft = (v) => {
-  return Math.abs(v)
-    .toString()
-    .padStart(2, '0')
 }
 const formatTime = (seconds) => {
-  const { min, sec } = toMinute(seconds)
-  const str = `${padLeft(min)}:${padLeft(sec)}`
-  if (seconds < 0) {
-    return '-' + str
-  }
-  return str
+  const padLeft = (num) => num.toString().padStart(2, '0')
+  const { hour, min, sec, sign } = toTime(seconds)
+  const hourStr = hour > 0 ? hour + ':' : ''
+  return `${sign}${hourStr}${padLeft(min)}:${padLeft(sec)}`
 }
 
 export const state = () => ({
