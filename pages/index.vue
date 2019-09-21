@@ -1,28 +1,34 @@
 <template>
-  <b-tabs type="is-toggle" expanded>
-    <b-tab-item label="Home" :icon="homeIcon">
-      <home />
-    </b-tab-item>
-    <b-tab-item label="Settings" icon="tune">
-      <settings />
-    </b-tab-item>
-  </b-tabs>
+  <section class="section container">
+    <h1 class="title">
+      <b-icon icon="home"></b-icon>
+      ホーム
+    </h1>
+    <hr />
+    <div class="columns">
+      <div class="column">
+        <room />
+      </div>
+      <div class="column">
+        <timer />
+        <schedule />
+        <options />
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Home from '~/components/Home'
-import Settings from '~/components/Settings'
+import Schedule from '~/components/panels/Schedule'
+import Room from '~/components/panels/Room'
+import Timer from '~/components/panels/Timer'
+import Options from '~/components/panels/Options'
 export default {
   components: {
-    Home,
-    Settings
-  },
-  computed: {
-    ...mapGetters('timer', ['isOver']),
-    homeIcon() {
-      return this.isOver ? 'bell-ring' : 'home'
-    }
+    Schedule,
+    Room,
+    Timer,
+    Options
   }
 }
 </script>
