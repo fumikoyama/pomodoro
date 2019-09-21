@@ -10,8 +10,7 @@ export const state = () => ({
   rawEditData: {
     date: null,
     note: null
-  },
-  isActive: false
+  }
 })
 
 export const getters = {
@@ -43,12 +42,6 @@ export const getters = {
 }
 
 export const mutations = {
-  open(state) {
-    state.isActive = true
-  },
-  close(state) {
-    state.isActive = false
-  },
   setDate(state, value) {
     state.editData.date = value
   },
@@ -127,12 +120,6 @@ export const mutations = {
 }
 
 export const actions = {
-  open({ commit }) {
-    commit('open')
-  },
-  close({ commit }) {
-    commit('close')
-  },
   changeCheckState({ commit }, payload) {
     commit('changeCheckState', payload)
   },

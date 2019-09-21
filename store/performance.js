@@ -25,8 +25,7 @@ export const state = () => ({
   elapsedLog: [],
   disturbedLog: [],
   breakTimeLog: [],
-  overTimeLog: [],
-  isActive: false
+  overTimeLog: []
 })
 
 export const getters = {
@@ -71,12 +70,6 @@ export const getters = {
 }
 
 export const mutations = {
-  open(state) {
-    state.isActive = true
-  },
-  close(state) {
-    state.isActive = false
-  },
   addDisturbedLog(state) {
     // 中断ログの更新
     state.disturbedLog.push({
@@ -129,12 +122,6 @@ export const mutations = {
 }
 
 export const actions = {
-  open({ commit }) {
-    commit('open')
-  },
-  close({ commit }) {
-    commit('close')
-  },
   addDisturbedLog({ commit }) {
     // 中断ログの追加
     commit('addDisturbedLog')
