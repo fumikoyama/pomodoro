@@ -1,24 +1,19 @@
 import { DialogProgrammatic as Dialog } from 'buefy'
 
-const toMinute = (seconds) => {
+const toTime = (seconds) => {
+  const s = Math.abs(seconds)
   return {
-    min: ~~(seconds / 60) % 60,
-    sec: ~~(seconds % 60)
+    hour: ~~(s / 60 / 60),
+    min: ~~(s / 60) % 60,
+    sec: ~~(s % 60),
+    sign: seconds < 0 ? '-' : ''
   }
-}
-const padLeft = (v) => {
-  return Math.abs(v)
-    .toString()
-    .padStart(2, '0')
 }
 const formatTime = (time) => {
+  const padLeft = (num) => num.toString().padStart(2, '0')
   const seconds = time.reduce((a, x) => a + x.seconds, 0)
-  const { min, sec } = toMinute(seconds)
-  const str = `${padLeft(min)}分${padLeft(sec)}秒`
-  if (seconds < 0) {
-    return '-' + str
-  }
-  return str
+  const { hour, min, sec, sign } = toTime(seconds)
+  return `${sign}${hour}時間${padLeft(min)}分${padLeft(sec)}秒`
 }
 
 export const state = () => ({

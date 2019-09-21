@@ -1,20 +1,23 @@
 <template>
-  <section class="section container">
-    <h1 class="title">
-      <b-icon icon="home"></b-icon>
-      ホーム
-    </h1>
-    <hr />
-    <div class="columns">
-      <div class="column">
-        <room />
+  <section class="section hero">
+    <header class="hero-head">
+      <div class="has-text-centered">
+        <h1 class="title">
+          <b-icon icon="home"></b-icon>
+          Home
+        </h1>
+        <hr />
       </div>
-      <div class="column">
-        <timer />
-        <schedule />
-        <options />
+    </header>
+    <section class="hero-body">
+      <div class="">
+        <div class="columns">
+          <room class="column" />
+          <timer class="column" />
+          <schedule class="column" />
+        </div>
       </div>
-    </div>
+    </section>
   </section>
 </template>
 
@@ -22,13 +25,12 @@
 import Schedule from '~/components/panels/Schedule'
 import Room from '~/components/panels/Room'
 import Timer from '~/components/panels/Timer'
-import Options from '~/components/panels/Options'
 export default {
+  layout: 'main',
   components: {
     Schedule,
     Room,
-    Timer,
-    Options
+    Timer
   }
 }
 </script>
