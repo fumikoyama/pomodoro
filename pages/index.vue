@@ -12,9 +12,9 @@
     <section class="hero-body">
       <div class="">
         <div class="columns">
-          <room class="column" />
           <timer class="column" />
           <schedule class="column" />
+          <room class="column" />
         </div>
       </div>
     </section>

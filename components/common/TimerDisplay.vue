@@ -1,11 +1,6 @@
 <template>
-  <div class="panel-block">
-    <div
-      class="container has-text-centered is-size-2 box is-family-monospace"
-      :class="style"
-    >
-      {{ displayTime }}
-    </div>
+  <div class="is-family-monospace" :class="style">
+    {{ displayTime }}
   </div>
 </template>
 

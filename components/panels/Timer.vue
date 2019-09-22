@@ -7,7 +7,9 @@
       スケジュールを再作成してください。
     </div>
     <template v-else>
-      <timer-display />
+      <div class="panel-block">
+        <timer-display class="container has-text-centered is-size-2 box" />
+      </div>
       <div v-if="isOver" class="panel-block">
         <b-button class="is-fullwidth" type="is-danger" outlined @click="stop">
           <b-icon icon="stop" />
