@@ -25,7 +25,8 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "dayjs": "^1.8.16",
     "nuxt": "^2.0.0",
-    "nuxt-buefy": "^0.3.14"
+    "nuxt-buefy": "^0.3.14",
+    "vue2-touch-events": "^2.0.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
