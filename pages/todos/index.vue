@@ -1,9 +1,5 @@
 <template>
-  <section
-    v-touch:swipe.left="() => $router.push('/performance')"
-    v-touch:swipe.right="() => $router.push('/')"
-    class="section hero"
-  >
+  <section class="section hero">
     <header class="hero-head">
       <div class="container has-text-centered">
         <h1 class="title">

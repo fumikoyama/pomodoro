@@ -1,8 +1,5 @@
 <template>
-  <section
-    v-touch:swipe.left="() => $router.push('/todos')"
-    class="section hero"
-  >
+  <section class="section hero">
     <header class="hero-head">
       <div class="has-text-centered">
         <h1 class="title">

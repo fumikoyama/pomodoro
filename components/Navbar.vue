@@ -6,6 +6,7 @@
       icon-right="home"
       tag="router-link"
       to="/"
+      :disabled="disabled('index')"
     />
     <b-button
       size="is-medium"
@@ -13,6 +14,7 @@
       icon-right="format-list-checkbox"
       tag="router-link"
       to="/todos"
+      :disabled="disabled('todos')"
     />
     <b-button
       size="is-medium"
@@ -20,6 +22,7 @@
       icon-right="gauge"
       tag="router-link"
       to="/performance"
+      :disabled="disabled('performance')"
     />
     <b-button
       size="is-medium"
@@ -27,6 +30,7 @@
       icon-right="tune"
       tag="router-link"
       to="/settings"
+      :disabled="disabled('settings')"
     />
   </footer>
 </template>
@@ -39,6 +43,11 @@ export default {
     ...mapGetters('timer', ['isOver']),
     homeButtonType() {
       return this.isOver ? 'is-danger' : 'is-light'
+    }
+  },
+  methods: {
+    disabled(name) {
+      return this.$route.name === name
     }
   }
 }

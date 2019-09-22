@@ -30,10 +30,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    '~/plugins/day.js',
-    { src: '~/plugins/vue2-touch-events.js', ssr: false }
-  ],
+  plugins: ['~/plugins/day.js'],
   /*
    ** Nuxt.js dev-modules
    */
