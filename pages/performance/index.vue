@@ -1,7 +1,7 @@
 <template>
   <section
-    v-touch:swipe.left="() => $router.push('/todos')"
-    v-touch:swipe.right="() => $router.push('/settings')"
+    v-touch:swipe.left="() => $router.push('/settings')"
+    v-touch:swipe.right="() => $router.push('/todos')"
     class="section hero"
   >
     <header class="hero-head">

@@ -1,6 +1,6 @@
 <template>
   <section
-    v-touch:swipe.left="() => $router.push('/performance')"
+    v-touch:swipe.right="() => $router.push('/performance')"
     class="section hero"
   >
     <header class="hero-head">

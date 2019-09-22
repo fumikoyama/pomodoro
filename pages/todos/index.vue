@@ -1,7 +1,7 @@
 <template>
   <section
-    v-touch:swipe.left="() => $router.push('/')"
-    v-touch:swipe.right="() => $router.push('/performance')"
+    v-touch:swipe.left="() => $router.push('/performance')"
+    v-touch:swipe.right="() => $router.push('/')"
     class="section hero"
   >
     <header class="hero-head">
