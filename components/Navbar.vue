@@ -10,6 +10,7 @@
       :disabled="disabled('index')"
     />
     <b-button
+      v-if="useTodo"
       size="is-medium"
       type="is-light"
       icon-right="format-list-checkbox"
