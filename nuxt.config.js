@@ -26,7 +26,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/main.css'],
+  css: ['~/assets/main.css', '@mdi/font/css/materialdesignicons.min.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -45,7 +45,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'nuxt-buefy'
+    ['nuxt-buefy', { materialDesignIcons: false }]
   ],
   /*
    ** Axios module configuration
