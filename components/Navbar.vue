@@ -6,6 +6,7 @@
       icon-right="home"
       tag="router-link"
       to="/"
+      aria-label="ホームを表示する"
       :disabled="disabled('index')"
     />
     <b-button
@@ -14,6 +15,7 @@
       icon-right="format-list-checkbox"
       tag="router-link"
       to="/todos"
+      aria-label="Todoリストを表示する"
       :disabled="disabled('todos')"
     />
     <b-button
@@ -22,6 +24,7 @@
       icon-right="gauge"
       tag="router-link"
       to="/performance"
+      aria-label="実績を表示する"
       :disabled="disabled('performance')"
     />
     <b-button
@@ -30,6 +33,7 @@
       icon-right="tune"
       tag="router-link"
       to="/settings"
+      aria-label="設定を表示する"
       :disabled="disabled('settings')"
     />
   </footer>
