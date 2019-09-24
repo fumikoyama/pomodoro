@@ -1,6 +1,6 @@
 <template>
   <div class="has-text-centered">
-    <h1 class="subtitle has-text-weight-bold">
+    <h1 class="title is-size-4-mobile has-text-weight-bold">
       <b-icon :icon="pages[$route.name].icon" size="is-small" />
       {{ pages[$route.name].title }}
     </h1>
