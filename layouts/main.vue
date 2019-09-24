@@ -25,9 +25,9 @@ export default {
 .section {
   margin-top: -32px;
 }
-</style>
-
-<style scoped>
+.hero-body {
+  margin-top: -24px;
+}
 .footer {
   margin: 0;
   padding: 1rem;
