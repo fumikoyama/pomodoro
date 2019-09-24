@@ -1,5 +1,5 @@
 <template>
-  <div class="container has-text-centered">
+  <div class="has-text-centered">
     <h1 class="title">
       <b-icon :icon="pages[$route.name].icon"></b-icon>
       {{ pages[$route.name].title }}

@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import TodoCompletedList from '~/components/panels/TodoCompletedList'
-import TodoIncompleteList from '~/components/panels/TodoIncompleteList'
-import TodoTrash from '~/components/panels/TodoTrash'
-import TodoEditor from '~/components/panels/TodoEditor'
+import TodoCompletedList from '~/components/todos/TodoCompletedList'
+import TodoIncompleteList from '~/components/todos/TodoIncompleteList'
+import TodoTrash from '~/components/todos/TodoTrash'
+import TodoEditor from '~/components/todos/TodoEditor'
 export default {
   layout: 'main',
   components: {

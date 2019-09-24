@@ -61,7 +61,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import CollapsePanel from '~/components/common/CollapsePanel'
-import TimerDisplay from '~/components/common/TimerDisplay'
+import TimerDisplay from '~/components/timer/TimerDisplay'
 export default {
   components: {
     CollapsePanel,
