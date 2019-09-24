@@ -1,7 +1,7 @@
 <template>
   <div class="has-text-centered">
-    <h1 class="title">
-      <b-icon :icon="pages[$route.name].icon"></b-icon>
+    <h1 class="subtitle has-text-weight-bold">
+      <b-icon :icon="pages[$route.name].icon" size="is-small" />
       {{ pages[$route.name].title }}
     </h1>
     <hr />
