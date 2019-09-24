@@ -1,7 +1,7 @@
 <template>
   <collapse-panel icon="delete" :title="title">
     <div v-if="isEmpty" class="panel-block">
-      中に誰もいませんよ
+      中に誰もいませんよ。
     </div>
     <todo-list-item
       v-for="item of items"
