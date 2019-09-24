@@ -1,11 +1,13 @@
 <template>
-  <section class="section hero">
-    <titlebar class="hero-head" />
-    <main class="hero-body">
-      <nuxt />
-    </main>
-    <navbar class="hero-foot" />
-  </section>
+  <div>
+    <section class="section hero">
+      <titlebar class="hero-head" />
+      <main class="hero-body">
+        <nuxt />
+      </main>
+    </section>
+    <navbar class="footer" />
+  </div>
 </template>
 
 <script>
@@ -26,7 +28,7 @@ export default {
 </style>
 
 <style scoped>
-.hero-foot {
+.footer {
   margin: 0;
   padding: 1rem;
   position: fixed;
