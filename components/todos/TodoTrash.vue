@@ -1,12 +1,12 @@
 <template>
-  <collapse-panel icon="checkbox-blank-outline" :title="title">
+  <collapse-panel icon="delete" :title="title">
     <div v-if="isEmpty" class="panel-block">
       中に誰もいませんよ
     </div>
     <todo-list-item
       v-for="item of items"
       v-else
-      :key="`incomplete-${item.id}`"
+      :key="`trash-${item.id}`"
       :item="item"
     />
   </collapse-panel>
@@ -15,16 +15,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import CollapsePanel from '~/components/common/CollapsePanel'
-import TodoListItem from '~/components/common/TodoListItem'
+import TodoListItem from '~/components/todos/TodoListItem'
 export default {
   components: {
     CollapsePanel,
     TodoListItem
   },
   computed: {
-    ...mapGetters('todos', { items: 'incompleteItems' }),
+    ...mapGetters('todos', { items: 'deletedItems' }),
     title() {
-      return `未完了（${this.items.length}）`
+      return `ゴミ箱（${this.items.length}）`
     },
     isEmpty() {
       return this.items.length === 0

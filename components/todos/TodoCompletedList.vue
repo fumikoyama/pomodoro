@@ -15,7 +15,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import CollapsePanel from '~/components/common/CollapsePanel'
-import TodoListItem from '~/components/common/TodoListItem'
+import TodoListItem from '~/components/todos/TodoListItem'
 export default {
   components: {
     CollapsePanel,

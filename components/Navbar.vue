@@ -57,15 +57,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-footer {
-  margin: 0;
-  padding: 1rem;
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  background: #ffffff;
-  text-align: center;
-}
-</style>

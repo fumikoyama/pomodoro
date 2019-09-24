@@ -1,20 +1,17 @@
 <template>
-  <div class="columns">
-    <timer class="column" />
-    <schedule class="column" />
-    <room class="column" />
+  <div class="container">
+    <timer />
+    <schedule />
   </div>
 </template>
 
 <script>
-import Schedule from '~/components/panels/Schedule'
-import Room from '~/components/panels/Room'
-import Timer from '~/components/panels/Timer'
+import Schedule from '~/components/schedule/Schedule'
+import Timer from '~/components/timer/Timer'
 export default {
   layout: 'main',
   components: {
     Schedule,
-    Room,
     Timer
   }
 }

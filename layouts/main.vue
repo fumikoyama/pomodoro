@@ -1,14 +1,12 @@
 <template>
   <div>
     <section class="section hero">
-      <header class="hero-head">
-        <titlebar />
-      </header>
+      <titlebar class="hero-head" />
       <main class="hero-body">
         <nuxt />
       </main>
     </section>
-    <navbar />
+    <navbar class="footer" />
   </div>
 </template>
 
@@ -22,3 +20,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.section {
+  margin-top: -32px;
+}
+</style>
+
+<style scoped>
+.footer {
+  margin: 0;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background: #ffffff;
+  text-align: center;
+}
+</style>
