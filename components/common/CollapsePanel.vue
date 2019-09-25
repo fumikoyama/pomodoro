@@ -20,7 +20,7 @@
 <script>
 export default {
   props: {
-    icon: { type: String, default: null },
+    icon: { type: String, default: '' },
     title: { type: String, default: null },
     isOpen: { type: Boolean, default: true }
   },

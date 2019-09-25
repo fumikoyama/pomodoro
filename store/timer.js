@@ -1,4 +1,6 @@
 import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+dayjs.locale('ja')
 
 const TIMER_STATE = {
   RUNNNING: 0,
@@ -26,7 +28,6 @@ export const state = () => ({
   disturbed: 0,
   startedTimeStamp: null,
   timerState: TIMER_STATE.STOPED,
-  sex: null,
   prevTime: null
 })
 

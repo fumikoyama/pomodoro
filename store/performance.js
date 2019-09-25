@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
 import { DialogProgrammatic as Dialog } from 'buefy'
+dayjs.locale('ja')
 
 const toTime = (seconds) => {
   const s = Math.abs(seconds)
