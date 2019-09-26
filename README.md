@@ -20,3 +20,12 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+# package.jsonの最新化
+
+```
+$ npm i -g npm-check-updates
+$ ncu -u
+$ npm update
+```

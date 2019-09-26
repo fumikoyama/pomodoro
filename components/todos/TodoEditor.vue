@@ -14,6 +14,7 @@
         :mobile-native="false"
         :month-names="monthNames"
         :day-names="dayNames"
+        :date-formatter="formatter"
       ></b-datepicker>
     </div>
     <div class="panel-block">
@@ -52,13 +53,8 @@ export default {
   components: {
     CollapsePanel
   },
-  data() {
-    return {
-      monthNames: [...Array(12)].map((_, i) => `${i + 1}月`),
-      dayNames: ['日', '月', '火', '水', '木', '金', '土']
-    }
-  },
   computed: {
+    ...mapState('calender', ['monthNames', 'dayNames']),
     ...mapState('todos', ['editData']),
     id() {
       return this.editData.id
@@ -86,12 +82,11 @@ export default {
       return !this.$store.getters['todos/canCommit']
     }
   },
-  methods: mapActions('todos', [
-    'add',
-    'setNote',
-    'setDate',
-    'update',
-    'cancel'
-  ])
+  methods: {
+    ...mapActions('todos', ['add', 'setNote', 'setDate', 'update', 'cancel']),
+    formatter(date) {
+      return this.$store.getters['calender/dateFormatter'](date)
+    }
+  }
 }
 </script>

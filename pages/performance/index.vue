@@ -1,52 +1,28 @@
 <template>
-  <div class="container">
-    <div class="box">
-      {{ `完了したポモ回数：${totalPomoCount}` }}
-    </div>
-    <div class="box">
-      {{ `完了したポモ時間：${totalElapsed}` }}
-    </div>
-    <div class="box">
-      {{ `中断された回数：${totalDisturbedCount}` }}
-    </div>
-    <div class="box">
-      {{ `中断された時間：${totalDisturbed}` }}
-    </div>
-    <div class="box">
-      {{ `超過した時間：${totalOverTime}` }}
-    </div>
-    <div class="box">
-      {{ `休憩回数：${totalBreakCount}` }}
-    </div>
-    <div class="box">
-      {{ `休憩時間：${totalBreakTime}` }}
-    </div>
-    <b-button
-      class="is-fullwidth"
-      type="is-link"
-      outlined
-      :disabled="!canClear"
-      @click="clear"
-    >
-      クリア
-    </b-button>
-  </div>
+  <b-tabs position="is-centered" type="is-toggle">
+    <b-tab-item>
+      <template slot="header">
+        <b-icon icon="view-list" size="is-small" />
+      </template>
+      <performance-list />
+    </b-tab-item>
+    <b-tab-item>
+      <template slot="header">
+        <b-icon icon="chart-timeline-variant" size="is-small" />
+      </template>
+      <performance-chart />
+    </b-tab-item>
+  </b-tabs>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import PerformanceList from '~/components/performance/PerformanceList'
+import PerformanceChart from '~/components/performance/PerformanceChart'
 export default {
   layout: 'main',
-  computed: mapGetters('performance', [
-    'totalPomoCount',
-    'totalDisturbedCount',
-    'totalBreakCount',
-    'totalElapsed',
-    'totalDisturbed',
-    'totalBreakTime',
-    'totalOverTime',
-    'canClear'
-  ]),
-  methods: mapActions('performance', ['clear'])
+  components: {
+    PerformanceList,
+    PerformanceChart
+  }
 }
 </script>

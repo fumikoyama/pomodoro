@@ -1,4 +1,7 @@
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
 import { DialogProgrammatic as Dialog } from 'buefy'
+dayjs.locale('ja')
 
 const toTime = (seconds) => {
   const s = Math.abs(seconds)
@@ -50,7 +53,6 @@ export const getters = {
     if (rootGetters['timer/isStarted']) {
       return false
     }
-    // console.log(getters.totalPomoCount)
     // 未編集の場合は不可
     if (
       getters.totalPomoCount === 0 &&
@@ -70,7 +72,7 @@ export const mutations = {
     state.disturbedLog.push({
       seconds: 0,
       rawSeconds: 0,
-      createdAt: new Date().toLocaleString(),
+      createdAt: dayjs(),
       timestamp: null
     })
   },

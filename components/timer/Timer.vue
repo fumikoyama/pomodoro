@@ -1,10 +1,10 @@
 <template>
   <collapse-panel :icon="icon" :title="title">
     <div v-if="isEmpty" class="panel-block">
-      スケジュールを作成してください。
+      スケジュールを作成してね。
     </div>
     <div v-else-if="isCompleted" class="panel-block">
-      スケジュールを再作成してください。
+      スケジュールを再作成してね。
     </div>
     <template v-else>
       <div class="panel-block">
