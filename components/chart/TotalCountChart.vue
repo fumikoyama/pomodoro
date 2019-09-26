@@ -1,14 +1,14 @@
 <template>
-  <div class="box">
-    <vue-highcharts ref="lineCharts" :options="options" />
-  </div>
+  <vue-highcharts ref="lineCharts" :options="options" />
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+import dayjs from 'dayjs'
 export default {
   computed: {
-    ...mapGetters('chart/total-count-chart', ['getDays', 'getData']),
+    ...mapState('chart', ['days']),
+    ...mapGetters('chart', ['getData', 'startDate', 'endDate']),
     options() {
       return {
         chart: {
@@ -16,20 +16,21 @@ export default {
           backgroundColor: 'transparent'
         },
         title: {
-          text: `回数（${this.getDays[0].format('MM/DD')} 〜
-            ${this.getDays[this.getDays.length - 1].format('MM/DD')}）`
+          text: '回数'
         },
         xAxis: {
           labels: {
             formatter() {
-              return this.value.format('MM/DD(dd)')
+              if (dayjs.isDayjs(this.value))
+                return this.value.format('MM/DD(dd)')
+              else return this.value
             },
             style: {
               fontSize: '12px'
             }
           },
           type: 'datetime',
-          categories: this.getDays,
+          categories: this.days,
           lineWidth: 2
         },
         yAxis: {
@@ -66,17 +67,17 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.load()
-    })
+  watch: {
+    days(p, v) {
+      this.$nextTick(this.load)
+    }
   },
   methods: {
     load() {
       const lineCharts = this.$refs.lineCharts
       lineCharts.delegateMethod('showLoading', 'Loading...')
       lineCharts.removeSeries()
-      this.getData.forEach((x) => lineCharts.addSeries(x))
+      this.getData.forEach(lineCharts.addSeries)
       lineCharts.hideLoading()
     }
   }

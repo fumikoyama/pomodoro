@@ -56,7 +56,7 @@ export const mutations = {
   start(state, seconds) {
     const now = dayjs()
     state.elapsed = seconds
-    state.startedTimeStamp = now.format()
+    state.startedTimeStamp = now
     state.timerState = TIMER_STATE.RUNNNING
     state.prevTime = now
   },
